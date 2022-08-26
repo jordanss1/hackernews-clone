@@ -1,17 +1,11 @@
-import React, { useEffect } from "react";
-import NewsApi from "../api";
+import React, { useState, useEffect } from "react";
 
-const NewsFeed = () => {
-  useEffect(() => {
-    NewsApi.get("/everything"),
-      {
-        params: {
-          domains: "http://hackernews.com",
-        },
-      }.then(({ articles }) => console.log(articles));
-  }, []);
+const NewsFeed = (articles) => {
+  const renderedArticles = articles.articles.map((article) => {
+    return <div>{article.author}</div>;
+  });
 
-  return <div>NewsFeed</div>;
+  return <div>{renderedArticles}</div>;
 };
 
 export default NewsFeed;
