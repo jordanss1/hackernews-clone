@@ -1,19 +1,17 @@
-import React, { useContext } from "react";
-import SearchContext from "../contexts/SearchContext";
+import React from "react";
+import "../styling/mainPage.css";
 
-const NewsFeed = () => {
-  const { articles } = useContext(SearchContext);
-
+const NewsFeed = ({ posts, position, width1, bg }) => {
   const handleClick = (link) => {
     window.open(link, "_blank");
   };
 
-  const renderedArticles = articles.map((article) => {
+  const renderedArticles = posts.map((article) => {
     return (
-      <article className="d-flex  w-100 mb-4" key={article.url}>
-        <div className="d-flex w-100 justify-content-center">
-          <div className="ui card w-50">
-            <div className="content">
+      <article className="mb-4" key={article.url}>
+        <div className={`d-flex w-100 justify-content-${position}`}>
+          <div style={bg} className={`ui card mobile-width ${width1}`}>
+            <div className="content" style={bg}>
               <div
                 className="header w-75"
                 style={{ cursor: "pointer" }}

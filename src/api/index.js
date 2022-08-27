@@ -9,21 +9,19 @@ export const axiosSearchApi = axios.create({
     language: "en",
   },
   headers: {
-    Authorization: "518bbdcd0563416688b803efc38f98b4",
+    Authorization: "d87d0bba1b9649deac46db73244aa480",
   },
 });
 
-// export const axiosTopHeadlines = axios.create({
-//   baseURL: "https://newsapi.org/v2/top-headlines",
-//     params: {
-//       id: "hacker-news",
-//       sortBy: "publishedAt",
-//       language: "en",
-//     },
-//   headers: {
-//     Authorization: "518bbdcd0563416688b803efc38f98b4",
-//   },
-// });
+export const axiosTopHeadlines = axios.create({
+  baseURL: "https://newsapi.org/v2/top-headlines",
+  params: {
+    sources: "hacker-news",
+  },
+  headers: {
+    Authorization: "d87d0bba1b9649deac46db73244aa480",
+  },
+});
 
 export const handleSearchSubmit = (searchTerm, setArticles, axiosApi) => {
   axiosApi
@@ -33,6 +31,6 @@ export const handleSearchSubmit = (searchTerm, setArticles, axiosApi) => {
       },
     })
     .then(({ data }) => {
-      setArticles((prev) => [...prev, data.articles]);
+      setArticles(data.articles);
     });
 };

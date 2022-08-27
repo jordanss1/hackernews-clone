@@ -1,6 +1,6 @@
 import React from "react";
 import SearchBar from "./SearchBar";
-import "../styling/Header.css";
+import "../styling/header.css";
 
 const Header = ({ headerName }) => {
   return (

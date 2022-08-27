@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import { axiosSearchApi, handleSearchSubmit } from "../api";
+import { axiosSearchApi, handleSearchSubmit, axiosTopHeadlines } from "../api";
 
 const SearchContext = createContext();
 
@@ -15,19 +15,20 @@ export const SearchStore = ({ children }) => {
     setTopArticles,
     searchTerm,
     setSearchTerm,
+    handleSearchSubmit,
+    axiosSearchApi,
   };
 
   useEffect(() => {
     if (searchTerm && !articles.length) {
       handleSearchSubmit(searchTerm, setArticles, axiosSearchApi);
-    } else {
-      const intervalId = setInterval(() => {
-        handleSearchSubmit(searchTerm, setArticles, axiosSearchApi);
-      }, 1000);
-      return () => clearInterval(intervalId);
     }
-    return;
-  }, [searchTerm]);
+  }, [articles]);
+
+  useEffect(() => {
+    axiosTopHeadlines.get("").then(({ data }) => setTopArticles(data.articles));
+    console.log(topArticles);
+  }, []);
 
   return (
     <SearchContext.Provider value={fullProviders}>

@@ -2,10 +2,21 @@ import React, { useContext } from "react";
 import SearchContext from "../contexts/SearchContext";
 
 const SearchBar = () => {
-  const { searchTerm, setSearchTerm } = useContext(SearchContext);
+  const {
+    searchTerm,
+    setSearchTerm,
+    handleSearchSubmit,
+    setArticles,
+    axiosSearchApi,
+  } = useContext(SearchContext);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleSearchSubmit(searchTerm, setArticles, axiosSearchApi);
+  };
 
   return (
-    <div>
+    <form onSubmit={handleFormSubmit}>
       <div className="input-group">
         <input
           value={searchTerm}
@@ -17,7 +28,7 @@ const SearchBar = () => {
           aria-describedby="basic-addon1"
         />
       </div>
-    </div>
+    </form>
   );
 };
 
