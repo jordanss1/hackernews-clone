@@ -31,6 +31,11 @@ body {
   margin: 0;
 }
 
+.divider {
+  height: 10vh;
+  background-color: #d7d8f58a;
+}
+
 @media screen and (max-width: 576px) {
   header {
     height: 20vh;

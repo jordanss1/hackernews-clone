@@ -1,8 +1,8 @@
 import React from "react";
 import SearchBar from "./SearchBar";
-import HeaderStyle from "../styling/Header.css";
+import "../styling/Header.css";
 
-const Header = ({ headerName, termState }) => {
+const Header = ({ headerName }) => {
   return (
     <div className="container-fluid px-0">
       <header>
@@ -13,7 +13,7 @@ const Header = ({ headerName, termState }) => {
               <h1 className="heading text-center">{headerName}</h1>
             </div>
             <div className="col-12 col-sm-4 search-div align-self-center pb-2 pb-sm-0">
-              <SearchBar termState={termState} />
+              <SearchBar />
             </div>
           </div>
         </div>
