@@ -9,7 +9,6 @@ const NewsFeed = () => {
   };
 
   const renderedArticles = articles.map((article) => {
-    console.log(article);
     return (
       <article className="d-flex  w-100 mb-4" key={article.url}>
         <div className="d-flex w-100 justify-content-center">
