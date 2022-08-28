@@ -12,8 +12,6 @@ const App = () => {
     { backgroundColor: "white" },
   ];
 
-  console.log(topArticles);
-
   return (
     <div className="container-fluid gx-0">
       <Header headerName="The Hacker News" />

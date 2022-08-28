@@ -27,7 +27,6 @@ export const SearchStore = ({ children }) => {
 
   useEffect(() => {
     axiosTopHeadlines.get("").then(({ data }) => setTopArticles(data.articles));
-    console.log(topArticles);
   }, []);
 
   return (
