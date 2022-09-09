@@ -6,7 +6,7 @@ const SearchContext = createContext();
 export const SearchStore = ({ children }) => {
   const [articles, setArticles] = useState([]);
   const [topArticles, setTopArticles] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("apple");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fullProviders = {
     articles,
@@ -20,12 +20,9 @@ export const SearchStore = ({ children }) => {
   };
 
   useEffect(() => {
-    if (searchTerm && !articles.length) {
-      handleSearchSubmit(searchTerm, setArticles, axiosSearchApi);
+    if (!articles.length) {
+      handleSearchSubmit("apple", setArticles, axiosSearchApi);
     }
-  }, [articles]);
-
-  useEffect(() => {
     axiosTopHeadlines.get("").then(({ data }) => setTopArticles(data.articles));
   }, []);
 

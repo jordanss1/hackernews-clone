@@ -2,9 +2,40 @@
   grid-template-columns: 65vw 35vw;
 }
 
+.mainArticleDiv {
+  height: 140vh;
+  width: 65%;
+  overflow: scroll;
+  padding: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+  .grid-contain {
+    grid-template-columns: none;
+  }
+
+  .mainArticleDiv {
+    height: 100vh;
+    width: 60%;
+    overflow: scroll;
+    padding: 20px;
+  }
+
+  .mobile-width {
+    width: 75% !important;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .grid-contain {
     grid-template-columns: none;
+  }
+
+  .mainArticleDiv {
+    height: 100vh;
+    width: 100%;
+    overflow: scroll;
+    padding: 20px;
   }
 
   .mobile-width {

@@ -1,7 +1,7 @@
 import React from "react";
 import "../styling/mainPage.css";
 
-const NewsFeed = ({ posts, position, width1, bg }) => {
+const NewsFeed = ({ styleObj, posts }) => {
   const handleClick = (link) => {
     window.open(link, "_blank");
   };
@@ -9,9 +9,12 @@ const NewsFeed = ({ posts, position, width1, bg }) => {
   const renderedArticles = posts.map((article) => {
     return (
       <article className="mb-4" key={article.url}>
-        <div className={`d-flex w-100 justify-content-${position}`}>
-          <div style={bg} className={`ui card mobile-width ${width1}`}>
-            <div className="content" style={bg}>
+        <div className="d-flex w-100 justify-content-center">
+          <div
+            style={styleObj.bg}
+            className={`ui card ${styleObj.mobileWidth} ${styleObj.width1}`}
+          >
+            <div className="content" style={styleObj.bg}>
               <div
                 className="header w-75"
                 style={{ cursor: "pointer" }}
@@ -30,7 +33,7 @@ const NewsFeed = ({ posts, position, width1, bg }) => {
     );
   });
 
-  return <div>{renderedArticles}</div>;
+  return <div className={styleObj.divClass}>{renderedArticles}</div>;
 };
 
 export default NewsFeed;

@@ -3,8 +3,7 @@ import axios from "axios";
 export const axiosSearchApi = axios.create({
   baseURL: "https://newsapi.org/v2/everything",
   params: {
-    domains: "thehackernews.com",
-    pageSize: 10,
+    pageSize: 20,
     sortBy: "publishedAt",
     language: "en",
   },
