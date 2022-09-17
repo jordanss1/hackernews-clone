@@ -36,6 +36,11 @@ body {
   background-color: #d7d8f58a;
 }
 
+.searchButton {
+  width: 35px;
+  height: 35px;
+}
+
 @media screen and (max-width: 576px) {
   header {
     height: 20vh;
