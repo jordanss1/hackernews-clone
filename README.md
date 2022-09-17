@@ -10,7 +10,7 @@ On initial render there is a default search set on the right which can be scroll
 
 Go to the search bar and submit your search term to have the column on the left filled with the results of your search. Scroll down to see all of the results.
 
-<h3><b>Quick Start</b><h3>
+<h3><b>Quick Start</b></h3>
 
 <ul>
    <li> Open your terminal and git clone the repository: </li>
@@ -38,4 +38,7 @@ Go to the search bar and submit your search term to have the column on the left 
    <li> ReactJS </li>
    <li> CSS </li>
     <li>BootStrap </li>
+    <li>Semantic UI</li>
+    <li>Axios</li>
+    <li>NPM</li>
 </ul>
