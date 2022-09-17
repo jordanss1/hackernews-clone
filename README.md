@@ -33,7 +33,7 @@ Go to the search bar and submit your search term to have the column on the left 
 
 </ul>
 
-<h3><b>Technologies Used</b><h3>
+<h3><b>Technologies Used</b></h3>
 <ul>
    <li> ReactJS </li>
    <li> CSS </li>
