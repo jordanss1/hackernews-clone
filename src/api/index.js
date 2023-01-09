@@ -6,6 +6,7 @@ export const axiosSearchApi = axios.create({
     pageSize: 20,
     sortBy: "publishedAt",
     language: "en",
+    
   },
   headers: {
     Authorization: "d87d0bba1b9649deac46db73244aa480",
@@ -15,7 +16,8 @@ export const axiosSearchApi = axios.create({
 export const axiosTopHeadlines = axios.create({
   baseURL: "https://newsapi.org/v2/top-headlines",
   params: {
-    sources: "hacker-news",
+    category: "technology",
+    country: "us",
   },
   headers: {
     Authorization: "d87d0bba1b9649deac46db73244aa480",

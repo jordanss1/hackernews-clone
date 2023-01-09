@@ -20,8 +20,41 @@ export const SearchStore = ({ children }) => {
   };
 
   useEffect(() => {
+    const letters = [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z",
+    ];
+    console.log(letters.length);
     if (!articles.length) {
-      handleSearchSubmit("apple", setArticles, axiosSearchApi);
+      handleSearchSubmit(
+        letters[Math.floor(Math.random() * 25)],
+        setArticles,
+        axiosSearchApi
+      );
     }
     axiosTopHeadlines.get("").then(({ data }) => setTopArticles(data.articles));
   }, []);
