@@ -1,24 +1,100 @@
 .welcome-container {
   height: 100vh;
 }
-.logo-container {
-  z-index: 2;
-  position: absolute;
+
+.hacker-div {
+  border-bottom: 2px solid #3a33c5;
+  position: relative;
+  top: 75px;
+  right: 10px;
+  width: 444px;
+  animation: top-border 1.5s ease-out infinite;
 }
 
-.logo-container2 {
-  position: absolute;
-  z-index: 1;
-  font-size: 100px;
+@keyframes top-border {
+  0% {
+    top: 90px;
+  }
+  100% {
+    top: 0px;
+  }
 }
 
-.logo-container p {
+.logo-container h1 {
+  position: relative;
+  color: #ffffff;
+  -webkit-text-stroke: 0.1vw rgb(37, 37, 37);
   font-size: 80px;
   font-family: "Rajdhani", sans-serif;
 }
 
+.logo-container h1::before {
+  content: attr(data-text);
+  position: absolute;
+  color: #3a33c5;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  color: #3a33c5;
+  overflow: hidden;
+  animation: hack-ani 1.5s ease-out infinite;
+}
+
+@keyframes hack-ani {
+  0% {
+    height: 100%;
+  }
+  100% {
+    height: 0%;
+  }
+}
+
+.logo-container p {
+  position: relative;
+  color: rgb(255, 255, 255);
+  -webkit-text-stroke: 0.1vw #3a33c5;
+  font-size: 80px;
+  font-family: "Rajdhani", sans-serif;
+  border-left: 1.5px solid black;
+  height: 5%;
+}
+
+.logo-container p::before {
+  content: attr(data-p);
+  position: absolute;
+  -webkit-text-stroke: 0vw rgb(37, 37, 37);
+  width: 115%;
+  height: 100%;
+  right: 115px;
+  bottom: 4px;
+  color: #000000;
+  overflow: hidden;
+  z-index: 2;
+  animation: before-the-ani 1.5s ease-out infinite;
+}
+
+@keyframes before-the-ani {
+  0% {
+    width: 115%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
 .the-word {
   position: relative;
-  bottom: 1px;
-  right: 1px;
+  bottom: 4px;
+  right: 132px;
+  animation: the-ani ease-out 1.5s infinite;
+}
+
+@keyframes the-ani {
+  0% {
+    right: 132px;
+  }
+  100% {
+    right: 0px;
+  }
 }
