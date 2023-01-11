@@ -2,9 +2,9 @@ import React from "react";
 import SearchBar from "./SearchBar";
 import "../styling/header.css";
 
-const Header = ({ headerName }) => {
+const Header = ({ headerName, display }) => {
   return (
-    <header className="container-fluid px-0">
+    <header className={`container-fluid px-0 ${display}`}>
       <div className="top-header d-flex justify-content-center">
         <div className="top-container d-flex align-items-center justify-content-between ms-4">
           <div>

@@ -6,17 +6,21 @@ export const useClasses = (initial) => {
       case "LOGO":
         return {
           ...state,
-          the: action.the,
-          hacker: action.hacker,
+          theSpan: action.theSpan,
+          topBorder: action.topBorder,
+          container: action.container,
+          leftBorder: action.leftBorder,
         };
     }
   }, initial);
 
-  const setLogo = useCallback((the, hacker) => {
+  const setLogo = useCallback((theSpan, topBorder, container, leftBorder) => {
     dispatch({
       type: "LOGO",
-      the,
-      hacker,
+      theSpan,
+      topBorder,
+      container,
+      leftBorder,
     });
   }, []);
 
