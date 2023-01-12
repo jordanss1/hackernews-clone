@@ -1,35 +1,44 @@
 import React from "react";
 import SearchBar from "./SearchBar";
+import NavBar from "./NavBar";
 import "../styling/header.css";
 
-const Header = ({ headerName, display }) => {
+const Header = ({ headerName }) => {
   return (
-    <header className={`container-fluid px-0 ${display}`}>
+    <header className="container-fluid px-0">
       <div className="top-header d-flex justify-content-center">
         <div className="top-container d-flex align-items-center justify-content-between ms-4">
-          <div>
+          <div className="trusted w-25 d-flex justify-content-end">
             <p>#1 Trusted Cybersecurity News Platform</p>
           </div>
-          <div className="d-flex flex-row align-items-center justify-content-evenly me-1">
-            <p className="mb-0 me-4">Followed by 3.45+ million</p>
+          <div className="icon-div d-flex flex-row align-items-center justify-content-evenly me-1">
+            <p className="mb-0 pe-4">Followed by 3.45+ million</p>
             <a href="https://twitter.com/thehackersnews">
-              <i className="twitter icon me-4 mb-2"></i>
+              <i className="twitter icon pe-5 mb-2"></i>
             </a>
-            <i className="linkedin icon me-4 mb-2"></i>
-            <i className="facebook f icon me-4 mb-2"></i>
+            <i className="linkedin icon pe-5 mb-2"></i>
+            <i className="facebook f icon pe-5 mb-2"></i>
           </div>
         </div>
       </div>
       <div className="bottom-header px-3">
         <div className="row justify-content-around align-content-center">
-          <div className=" heading-container col-12 col-sm-4 pb-2 pb-sm-0">
+          <div className=" heading-container pt-2 col-12 col-sm-4 pb-2 pb-sm-0">
             <h2 className="heading text-start ps-3">{headerName}</h2>
           </div>
-          <div className="col-12 col-sm-4 search-div align-self-center pb-2 pb-sm-0">
-            <SearchBar />
+          <div className="subscribe-div col-12 col-sm-4 search-div d-flex justify-content-end align-self-center pb-2 pb-sm-0 pe-1">
+            <button className="subscribe-button d-flex align-items-center rounded p-2">
+              <i className="fs-5 envelope icon"></i>
+              Subscribe to Newsletter
+            </button>
+          </div>
+          <div className="d-none align-items-center justify-content-end justify-content-evenly mb-2 pe-5">
+            <i className="search icon ps-4"></i>
+            <i className="bars icon ps-5"></i>
           </div>
         </div>
       </div>
+      <NavBar />
     </header>
   );
 };

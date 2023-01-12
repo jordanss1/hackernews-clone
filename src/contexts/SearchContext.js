@@ -19,45 +19,45 @@ export const SearchStore = ({ children }) => {
     axiosSearchApi,
   };
 
-  useEffect(() => {
-    const letters = [
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "g",
-      "h",
-      "i",
-      "j",
-      "k",
-      "l",
-      "m",
-      "n",
-      "o",
-      "p",
-      "q",
-      "r",
-      "s",
-      "t",
-      "u",
-      "v",
-      "w",
-      "x",
-      "y",
-      "z",
-    ];
-    console.log(letters.length);
-    if (!articles.length) {
-      handleSearchSubmit(
-        letters[Math.floor(Math.random() * 25)],
-        setArticles,
-        axiosSearchApi
-      );
-    }
-    axiosTopHeadlines.get("").then(({ data }) => setTopArticles(data.articles));
-  }, []);
+  // useEffect(() => {
+  //   const letters = [
+  //     "a",
+  //     "b",
+  //     "c",
+  //     "d",
+  //     "e",
+  //     "f",
+  //     "g",
+  //     "h",
+  //     "i",
+  //     "j",
+  //     "k",
+  //     "l",
+  //     "m",
+  //     "n",
+  //     "o",
+  //     "p",
+  //     "q",
+  //     "r",
+  //     "s",
+  //     "t",
+  //     "u",
+  //     "v",
+  //     "w",
+  //     "x",
+  //     "y",
+  //     "z",
+  //   ];
+  //   console.log(letters.length);
+  //   if (!articles.length) {
+  //     handleSearchSubmit(
+  //       letters[Math.floor(Math.random() * 25)],
+  //       setArticles,
+  //       axiosSearchApi
+  //     );
+  //   }
+  //   axiosTopHeadlines.get("").then(({ data }) => setTopArticles(data.articles));
+  // }, []);
 
   return (
     <SearchContext.Provider value={fullProviders}>

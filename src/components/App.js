@@ -11,16 +11,18 @@ const App = () => {
   const [display, setDisplay] = useState("d-none");
 
   useEffect(() => {
-    setTimeout(() => setDisplay(""), 2500);
+    const id = setTimeout(() => setDisplay(""), 3500);
+
+    return () => clearTimeout(id);
   }, []);
 
   return (
     <div className="container-fluid gx-0">
-      <Welcome />
-      <Header display={display} headerName="The Hacker News" />
+      <Welcome display={display} />
       <section className={`${display}`}>
+        <Header headerName="The Hacker News" />
         <div className="divider mb-3"></div>
-        <main className="grid-contain">
+        <main className="grid-contain d-grid">
           <section className="d-flex justify-content-center">
             <NewsFeed posts={articles} styleObj={style1} />
           </section>

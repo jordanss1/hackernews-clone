@@ -1,5 +1,4 @@
 header {
-  height: 15vh;
 }
 
 .top-header {
@@ -13,7 +12,8 @@ header {
 }
 
 .top-container {
-  width: 85%;
+  width: 90%;
+  height: 27px;
 }
 
 .top-container i {
@@ -23,7 +23,7 @@ header {
 
 .bottom-header {
   background-color: #3a33c5;
-  height: 73%;
+  height: 80px;
 }
 
 .bottom-header .row {
@@ -35,12 +35,13 @@ header {
 }
 
 .heading {
-  font-family: "Saira Condensed", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   margin: 0px;
-  font-size: 60px;
+  font-size: 55px;
   color: #fff;
   font-weight: 700;
   width: 100%;
+  letter-spacing: -2px;
 }
 
 .search-div {
@@ -52,8 +53,8 @@ body {
 }
 
 .divider {
-  height: 10vh;
   background-color: #d7d8f58a;
+  height: 130px;
 }
 
 .searchButton {
@@ -61,8 +62,124 @@ body {
   height: 35px;
 }
 
+.subscribe-button {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 500;
+  color: #4a380e;
+  background-color: #ffdb4d;
+  font-size: 16px;
+  height: 40px;
+}
+
+.subscribe-button i {
+  margin-bottom: 10px;
+}
+
+nav {
+  display: grid;
+  grid-template-columns: 85% 15%;
+  height: 46px;
+  background-color: #fff;
+  box-shadow: 0 5px 0 rgb(223 231 255);
+  color: #4e6a8d;
+}
+
+nav ul {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  list-style: none;
+}
+
+nav li {
+  padding: 0 20px;
+  border-bottom: 3px solid transparent;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+nav li:hover {
+  border-bottom: 3px solid #271dae;
+}
+
+nav i {
+  font-size: 20px !important;
+}
+
 a {
   text-decoration: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .heading {
+    font-size: 35px;
+  }
+  /* header {
+    height: 20vh;
+  }
+
+  .search-div {
+    width: 50%;
+    height: 25%;
+  } */
+}
+
+@media screen and (max-width: 1140px) {
+  .d-breaches,
+  .malware {
+    display: none !important;
+  }
+  .top-container {
+    width: 100%;
+  }
+  .trusted {
+    width: 50% !important;
+    justify-content: start !important;
+  }
+  .icon-div {
+    width: 50% !important;
+    justify-content: end !important;
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .icon-div p,
+  .subscribe-div,
+  .d-breaches,
+  .vulnerable,
+  .malware,
+  .contact,
+  .icons-menu {
+    display: none !important;
+  }
+
+  nav {
+    display: flex !important;
+    padding: 0px 0px !important;
+  }
+
+  .menu {
+    padding-left: 0 !important;
+    width: 100%;
+  }
+
+  .menu ul {
+    justify-content: center;
+    padding: 0px !important;
+  }
+
+  ul li {
+    justify-content: center;
+    border: none !important;
+    width: 33%;
+  }
 }
 
 @media screen and (max-width: 576px) {
@@ -72,20 +189,6 @@ a {
 
   .heading {
     font-size: 40px;
-  }
-
-  .search-div {
-    width: 50%;
-    height: 25%;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .heading {
-    font-size: 35px;
-  }
-  header {
-    height: 20vh;
   }
 
   .search-div {
