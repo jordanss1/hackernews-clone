@@ -1,5 +1,25 @@
 .welcome-container {
   height: 100vh;
+  display: flex;
+}
+
+.welcome-leave {
+  animation: welcome-leave 1.5s ease-in-out forwards;
+}
+
+@keyframes welcome-leave {
+  0% {
+    opacity: 1;
+    height: 1100px;
+  }
+  100% {
+    opacity: 0 !important;
+    height: 0px;
+  }
+}
+
+.arrows-div-opacity {
+  opacity: 0 !important;
 }
 
 .hacker-div {

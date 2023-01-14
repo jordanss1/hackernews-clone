@@ -21,7 +21,7 @@ const Welcome = ({ display }) => {
   }, []);
 
   return (
-    <section className="welcome-container d-flex flex-column align-items-center justify-content-center">
+    <section className="welcome-container flex-column align-items-center justify-content-center">
       <div
         className={`logo-container ${logo.container} flex-row justify-content-center w-100`}
       >

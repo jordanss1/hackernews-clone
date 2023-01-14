@@ -1,5 +1,26 @@
+html {
+  scroll-snap-type: y proximity;
+}
+
+.main-container {
+  scroll-snap-align: start;
+  height: 100vh;
+}
+
+.loading-p {
+  height: 300px;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 .grid-contain {
+  opacity: 0;
   grid-template-columns: 65vw 35vw;
+  transition: 1s ease-in;
+}
+
+.main-enter {
+  opacity: 1;
 }
 
 .mainArticleDiv {

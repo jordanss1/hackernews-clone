@@ -53,13 +53,9 @@ body {
 }
 
 .divider {
+  scroll-snap-type: mandatory;
   background-color: #d7d8f58a;
   height: 130px;
-}
-
-.searchButton {
-  width: 35px;
-  height: 35px;
 }
 
 .subscribe-button {
@@ -84,6 +80,44 @@ nav {
   background-color: #fff;
   box-shadow: 0 5px 0 rgb(223 231 255);
   color: #4e6a8d;
+  padding-right: 3rem !important;
+  padding-left: 3rem !important;
+  transition: 0.3s ease-in-out forwards;
+}
+
+form,
+.input-group,
+form input {
+  height: 0px !important;
+  padding: 0px !important;
+  transition: 0.3s ease-in-out;
+}
+
+input::placeholder {
+  color: #555555 !important;
+}
+
+.input-group {
+  width: 83% !important;
+}
+
+.form-displayed {
+  padding: 5px !important;
+  height: 50px !important;
+  background-color: white;
+}
+
+.input-group-displayed {
+  height: 36px !important;
+}
+
+form input {
+  transition: 0.3s ease-in-out !important;
+}
+
+.input-displayed {
+  padding: 5px !important;
+  height: 36px !important;
 }
 
 nav ul {
@@ -117,20 +151,6 @@ a {
   text-decoration: none;
 }
 
-@media screen and (max-width: 1200px) {
-  .heading {
-    font-size: 35px;
-  }
-  /* header {
-    height: 20vh;
-  }
-
-  .search-div {
-    width: 50%;
-    height: 25%;
-  } */
-}
-
 @media screen and (max-width: 1140px) {
   .d-breaches,
   .malware {
@@ -156,13 +176,78 @@ a {
   .vulnerable,
   .malware,
   .contact,
+  .cyber-attacks,
   .icons-menu {
     display: none !important;
   }
 
-  nav {
+  .newsletter {
     display: flex !important;
-    padding: 0px 0px !important;
+  }
+
+  .bottom-header {
+    height: 60px;
+  }
+
+  .bottom-container {
+    padding-right: 10px !important;
+  }
+
+  .heading-container {
+    width: 75% !important;
+  }
+
+  .header-search {
+    width: 20% !important;
+    display: flex !important;
+    padding-right: 0 !important;
+    color: white;
+  }
+
+  .icon-div {
+    padding-right: 10px;
+  }
+
+  .icon-div i {
+    font-size: 12px;
+    margin-right: 0px !important;
+    padding-right: 10px !important;
+  }
+
+  .icon-div a {
+    margin-right: 3px !important;
+    width: 27px;
+    display: flex;
+    justify-content: start;
+  }
+
+  .icon-div:last-child {
+    margin-right: 0 !important;
+  }
+
+  .home-icon {
+    display: flex !important;
+  }
+
+  .cart-icon {
+    display: flex !important;
+  }
+
+  li i {
+    margin-bottom: 7px !important;
+    font-size: 13px !important;
+    margin-right: 5px !important;
+  }
+
+  .heading {
+    font-size: 50px;
+  }
+
+  nav {
+    border-bottom: 4px solid #ffdb4d;
+    display: flex !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
   }
 
   .menu {
@@ -183,16 +268,24 @@ a {
 }
 
 @media screen and (max-width: 576px) {
-  header {
-    height: 20vh;
-  }
-
   .heading {
-    font-size: 40px;
+    font-size: 32px !important;
   }
 
-  .search-div {
-    width: 50%;
-    height: 25%;
+  .trusted {
+    width: 70% !important;
+    font-size: 12px !important;
+  }
+}
+
+@media screen and (max-width: 402px) {
+  .heading {
+    font-size: 25px !important;
+  }
+  .trusted {
+    width: 75% !important;
+  }
+  .icon-div {
+    width: 25% !important;
   }
 }
