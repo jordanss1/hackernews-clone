@@ -1,6 +1,3 @@
-header {
-}
-
 .top-header {
   background-color: #271dae;
   height: 27%;
@@ -53,7 +50,6 @@ body {
 }
 
 .divider {
-  scroll-snap-type: mandatory;
   background-color: #d7d8f58a;
   height: 130px;
 }
@@ -131,7 +127,7 @@ nav ul {
 
 nav li {
   padding: 0 20px;
-  border-bottom: 3px solid transparent;
+  border-bottom: 4px solid transparent;
   height: 100%;
   display: flex;
   align-items: center;
@@ -140,7 +136,7 @@ nav li {
 }
 
 nav li:hover {
-  border-bottom: 3px solid #271dae;
+  border-bottom: 4px solid #271dae;
 }
 
 nav i {

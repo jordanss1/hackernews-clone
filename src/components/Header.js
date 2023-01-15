@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import SearchBar from "./SearchBar";
 import NavBar from "./NavBar";
+import SearchContext from "../contexts/SearchContext";
 import "../styling/header.css";
 
 const Header = ({ headerName }) => {
+  const {
+    loading,
+    setLoading,
+    handleSearchSubmit,
+    axiosSearchApi,
+    setArticles,
+  } = useContext(SearchContext);
   const [display, setDisplay] = useState(false);
 
   const handleClick = () => {
@@ -54,7 +62,14 @@ const Header = ({ headerName }) => {
           </div>
         </div>
       </div>
-      <NavBar handleClick={handleClick} />
+      <NavBar
+        handleSearch={handleSearchSubmit}
+        setLoading={setLoading}
+        handleClick={handleClick}
+        setArticles={setArticles}
+        axiosSearch={axiosSearchApi}
+        loading={loading}
+      />
       <SearchBar display={display} />
     </header>
   );

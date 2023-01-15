@@ -7,8 +7,11 @@ export const SearchStore = ({ children }) => {
   const [articles, setArticles] = useState([]);
   const [topArticles, setTopArticles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const fullProviders = {
+    loading,
+    setLoading,
     articles,
     setArticles,
     topArticles,
@@ -19,45 +22,47 @@ export const SearchStore = ({ children }) => {
     axiosSearchApi,
   };
 
-  // useEffect(() => {
-  //   const letters = [
-  //     "a",
-  //     "b",
-  //     "c",
-  //     "d",
-  //     "e",
-  //     "f",
-  //     "g",
-  //     "h",
-  //     "i",
-  //     "j",
-  //     "k",
-  //     "l",
-  //     "m",
-  //     "n",
-  //     "o",
-  //     "p",
-  //     "q",
-  //     "r",
-  //     "s",
-  //     "t",
-  //     "u",
-  //     "v",
-  //     "w",
-  //     "x",
-  //     "y",
-  //     "z",
-  //   ];
-  //   console.log(letters.length);
-  //   if (!articles.length) {
-  //     handleSearchSubmit(
-  //       letters[Math.floor(Math.random() * 25)],
-  //       setArticles,
-  //       axiosSearchApi
-  //     );
-  //   }
-  //   axiosTopHeadlines.get("").then(({ data }) => setTopArticles(data.articles));
-  // }, []);
+  useEffect(() => {
+    const letters = [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z",
+    ];
+    if (!articles.length && !loading) {
+      handleSearchSubmit(
+        letters[Math.floor(Math.random() * 25)],
+        setArticles,
+        axiosSearchApi
+      );
+      axiosTopHeadlines.get("").then(({ data }) => {
+        console.log(data);
+        setTopArticles(data.articles);
+      });
+    }
+  }, [loading]);
 
   return (
     <SearchContext.Provider value={fullProviders}>

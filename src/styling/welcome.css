@@ -4,7 +4,7 @@
 }
 
 .welcome-leave {
-  animation: welcome-leave 1.5s ease-in-out forwards;
+  animation: welcome-leave 2s ease-in-out forwards;
 }
 
 @keyframes welcome-leave {
@@ -20,6 +20,7 @@
 
 .arrows-div-opacity {
   opacity: 0 !important;
+  width: 0px !important;
 }
 
 .hacker-div {
@@ -274,6 +275,10 @@
   100% {
     -webkit-text-stroke: 0.1vw #000000;
   }
+}
+
+.arrow-leave {
+  width: 0px !important;
 }
 
 @media screen and (max-width: 730px) {

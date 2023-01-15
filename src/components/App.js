@@ -2,15 +2,14 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import NewsFeed from "./NewsFeed";
 import Welcome from "./Welcome";
+import Trending from "./Trending";
 import SearchContext from "../contexts/SearchContext";
 import "../styling/mainPage.css";
-import { style1, style2 } from "../styling/styleObjects";
 
 const App = () => {
-  const { articles, topArticles } = useContext(SearchContext);
+  const { loading, setLoading } = useContext(SearchContext);
   const [display, setDisplay] = useState("d-none");
   const [mainSectionVisibility, setMainSectionVisibility] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const anchor = useRef();
 
@@ -33,18 +32,22 @@ const App = () => {
 
   useEffect(() => {
     const html = document.getElementsByTagName("html")[0];
-    const arrow = document.getElementsByClassName("arrows-div")[0];
+    const arrowDiv = document.getElementsByClassName("arrows-div")[0];
     const welcomeContainer =
       document.getElementsByClassName("welcome-container")[0];
+    const arrow = document.getElementsByClassName("first-arrow")[0];
+    const main = document.getElementsByClassName("main-container")[0];
     let id;
 
     if (mainSectionVisibility) {
       html.style.scrollSnapType = "none";
       welcomeContainer.classList.add("welcome-leave");
-      arrow.classList.add("arrows-div-opacity");
+      arrowDiv.classList.add("arrows-div-opacity");
+      arrow.classList.add("arrow-leaves");
 
       id = setTimeout(() => {
         setLoading(false);
+        main.classList.add("main-true-height");
       }, 2000);
     }
 
@@ -57,12 +60,11 @@ const App = () => {
 
   useEffect(() => {
     if (!loading) {
-      const mainContainer =
-        document.getElementsByClassName("grid-contain")[0];
+      const gridContainer = document.getElementsByClassName("grid-contain")[0];
 
-      mainContainer.classList.add("main-enter");
+      gridContainer.classList.add("main-enter");
     }
-  }, [loading]);
+  }, [loading, setLoading]);
 
   return (
     <>
@@ -80,15 +82,12 @@ const App = () => {
             <p ref={anchor}></p>
           </div>
         ) : (
-          <main className="grid-contain d-grid grid-container">
-            <section className="d-flex justify-content-center">
-              <NewsFeed posts={articles} styleObj={style1} />
-            </section>
-            <section className="pe-0 pe-sm-5 grid-item-2">
-              <h2 className="ui dividing header text-center text-sm-start pt-3 pt-sm-0">
-                Top Headlines
-              </h2>
-              <NewsFeed posts={topArticles} styleObj={style2} />
+          <main className="h-100">
+            <section className="grid-contain d-grid grid-container">
+              <section className="d-flex justify-content-end">
+                <NewsFeed />
+              </section>
+              <Trending />
             </section>
           </main>
         )}

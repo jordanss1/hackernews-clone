@@ -1,39 +1,45 @@
-import React from "react";
+import React, { useContext } from "react";
+import SearchContext from "../contexts/SearchContext";
 import "../styling/mainPage.css";
 
-const NewsFeed = ({ styleObj, posts }) => {
+const NewsFeed = () => {
+  const { articles } = useContext(SearchContext);
+
   const handleClick = (link) => {
     window.open(link, "_blank");
   };
 
-  const renderedArticles = posts.map((article) => {
+  const renderedArticles = articles.slice(0, 10).map((article) => {
     return (
-      <article className="mb-4" key={article.url}>
-        <div className="d-flex w-100 justify-content-center">
-          <div
-            style={styleObj.bg}
-            className={`ui card ${styleObj.mobileWidth} ${styleObj.width1}`}
-          >
-            <div className="content" style={styleObj.bg}>
-              <div
-                className="header w-75"
-                style={{ cursor: "pointer" }}
-                onClick={() => handleClick(article.url)}
-              >
-                {article.title}
+      <article
+        className="article-grid mb-4 d-grid"
+        onClick={() => handleClick(article.url)}
+        key={article.url}
+      >
+        <div className="d-flex justify-content-end">
+          <img src="news.jpg" className="news-image" />
+        </div>
+        <div className="article-info d-grid">
+          <h2>{article.title}</h2>
+          <aside>
+            <div className="d-flex aside-heading">
+              <div className="d-flex me-4">
+                <i className="calendar alternate outline icon calender-i"></i>
+                <h3>{article.publishedAt.slice(0, 10)}</h3>
               </div>
-              <div className="d-flex flex-row">
-                <div className="meta mx-2">{article.author}</div>
-                <div className="meta ms-4">{article.publishedAt}</div>
-              </div>
+              <h3>{article.source.Name}</h3>
             </div>
-          </div>
+            <div className="aside-content mt-2">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+          </aside>
         </div>
       </article>
     );
   });
 
-  return <div className={styleObj.divClass}>{renderedArticles}</div>;
+  return <div className="newsfeed-div">{renderedArticles}</div>;
 };
 
 export default NewsFeed;
