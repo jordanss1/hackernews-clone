@@ -1,17 +1,22 @@
 import React, { useContext } from "react";
 import SearchContext from "../contexts/SearchContext";
+import images from "../images";
 
-const Trending = () => {
+const Trending = ({ is1000 }) => {
   const { topArticles } = useContext(SearchContext);
 
   const handleClick = (link) => {
     window.open(link, "_blank");
   };
 
-  const renderedArticles = topArticles.map((article) => {
+  const articles = is1000 ? topArticles.slice(0, 4) : topArticles;
+
+  const renderedArticles = articles.map((article, i) => {
+    const image = images[i];
+
     return (
-      <article onClick={() => handleClick(article.url)} className="d-flex mb-3">
-        <img className="top-image me-3" src="news.jpg" />
+      <article onClick={() => handleClick(article.url)} className="mb-3">
+        <img className="top-image me-3" src={image} />
         <div className="top-title">{article.title}</div>
       </article>
     );
@@ -23,7 +28,7 @@ const Trending = () => {
         <h2 className="text-start pb-2 pt-sm-0 trending-header">
           Trending News Stories
         </h2>
-        <div className="articles">{renderedArticles}</div>
+        <div className="trending-articles">{renderedArticles}</div>
       </div>
     </section>
   );

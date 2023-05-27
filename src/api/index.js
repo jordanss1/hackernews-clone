@@ -8,7 +8,7 @@ export const axiosSearchApi = axios.create({
     language: "en",
   },
   headers: {
-    Authorization: "d87d0bba1b9649deac46db73244aa480",
+    Authorization: process.env.REACT_APP_ID,
   },
 });
 
@@ -20,7 +20,7 @@ export const axiosTopHeadlines = axios.create({
     pageSize: 10,
   },
   headers: {
-    Authorization: "d87d0bba1b9649deac46db73244aa480",
+    Authorization: process.env.REACT_APP_ID,
   },
 });
 

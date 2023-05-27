@@ -51,12 +51,14 @@ export const SearchStore = ({ children }) => {
       "y",
       "z",
     ];
+
     if (!articles.length && !loading) {
       handleSearchSubmit(
         letters[Math.floor(Math.random() * 25)],
         setArticles,
         axiosSearchApi
       );
+
       axiosTopHeadlines.get("").then(({ data }) => {
         console.log(data);
         setTopArticles(data.articles);

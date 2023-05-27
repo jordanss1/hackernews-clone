@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useClasses } from "../contexts/classReducer";
 import "../styling/welcome.css";
 
-const Welcome = ({ display }) => {
+const Welcome = () => {
   const [container2, setContainer2] = useState("d-none");
 
   const { logo, setLogo } = useClasses({
@@ -19,6 +19,20 @@ const Welcome = ({ display }) => {
 
     return () => clearTimeout(id);
   }, []);
+
+  useEffect(() => {
+    let id;
+    const welcomeContainer =
+      document.getElementsByClassName("welcome-container")[0];
+
+    if (container2 === "d-flex") {
+      id = setTimeout(() => {
+        welcomeContainer.classList.add("welcome-leave");
+      }, 1500);
+    }
+
+    return () => clearTimeout(id);
+  }, [container2]);
 
   return (
     <section className="welcome-container flex-column align-items-center justify-content-center">
@@ -53,17 +67,6 @@ const Welcome = ({ display }) => {
             <span className={`hacker-word-final`}>Hacker News</span>
           </h1>
         </div>
-      </div>
-      <div
-        className={`${
-          !display ? "opacity-100" : ""
-        } arrows-div w-50 d-flex justify-content-center`}
-      >
-        <i
-          className={`${
-            !display ? "arrow-move" : ""
-          } level down alternate icon first-arrow`}
-        ></i>
       </div>
     </section>
   );

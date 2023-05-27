@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import Header from "./Header";
+import Header from "./header/Header";
 import NewsFeed from "./NewsFeed";
 import Welcome from "./Welcome";
 import Trending from "./Trending";
 import SearchContext from "../contexts/SearchContext";
 import "../styling/mainPage.css";
+import CallToAction from "./CallToAction";
+import Footer from "./footer/Footer";
+import useMediaQuery from "../hooks/useMediaQuery.tsx";
 
 const App = () => {
   const { loading, setLoading } = useContext(SearchContext);
   const [display, setDisplay] = useState("d-none");
   const [mainSectionVisibility, setMainSectionVisibility] = useState(false);
+
+  const is1000 = useMediaQuery(1000);
 
   const anchor = useRef();
 
@@ -18,8 +23,6 @@ const App = () => {
 
     return () => clearTimeout(id);
   }, []);
-
-  console.log(mainSectionVisibility);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -32,35 +35,26 @@ const App = () => {
 
   useEffect(() => {
     const html = document.getElementsByTagName("html")[0];
-    const arrowDiv = document.getElementsByClassName("arrows-div")[0];
     const welcomeContainer =
       document.getElementsByClassName("welcome-container")[0];
-    const arrow = document.getElementsByClassName("first-arrow")[0];
-    const main = document.getElementsByClassName("main-container")[0];
     let id;
 
     if (mainSectionVisibility) {
       html.style.scrollSnapType = "none";
-      welcomeContainer.classList.add("welcome-leave");
-      arrowDiv.classList.add("arrows-div-opacity");
-      arrow.classList.add("arrow-leaves");
+      welcomeContainer.style.opacity = "0";
 
       id = setTimeout(() => {
         setLoading(false);
-        main.classList.add("main-true-height");
       }, 2000);
     }
 
-    return () => {
-      if (id) {
-        clearTimeout(id);
-      }
-    };
+    return () => clearTimeout(id);
   }, [mainSectionVisibility]);
 
   useEffect(() => {
     if (!loading) {
-      const gridContainer = document.getElementsByClassName("grid-contain")[0];
+      const gridContainer =
+        document.getElementsByClassName("grid-container")[0];
 
       gridContainer.classList.add("main-enter");
     }
@@ -68,27 +62,27 @@ const App = () => {
 
   return (
     <>
-      <Welcome display={display} />
+      <Welcome />
       <div className={`${display} main-container container-fluid gx-0`}>
         <Header headerName="The Hacker News" />
         <div className="divider mb-3"></div>
         {loading ? (
-          <div class="ui segment loading-p">
-            <div class="ui active inverted dimmer">
-              <div class="ui large text loader">Loading</div>
+          <div className="ui segment loading-p">
+            <div className="ui active inverted dimmer">
+              <div className="ui large text loader">Loading</div>
             </div>
             <p></p>
             <p></p>
             <p ref={anchor}></p>
           </div>
         ) : (
-          <main className="h-100">
-            <section className="grid-contain d-grid grid-container">
-              <section className="d-flex justify-content-end">
-                <NewsFeed />
-              </section>
-              <Trending />
+          <main className="h-100 main-content">
+            <section className="d-grid grid-container">
+              <NewsFeed />
+              <Trending is1000={is1000} />
             </section>
+            <CallToAction />
+            <Footer is1000={is1000} />
           </main>
         )}
       </div>
