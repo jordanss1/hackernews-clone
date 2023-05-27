@@ -1,6 +1,6 @@
 import React from "react";
 
-const SocialsWrapper = ({ icon, followers, backgroundColor, href, is1000 }) => {
+const FooterSocialsWrapper = ({ icon, followers, backgroundColor, href, is1000 }) => {
   return (
     <div className="social-wrapper d-flex flex-column align-items-center">
       <a
@@ -20,4 +20,4 @@ const SocialsWrapper = ({ icon, followers, backgroundColor, href, is1000 }) => {
   );
 };
 
-export default SocialsWrapper;
+export default FooterSocialsWrapper;

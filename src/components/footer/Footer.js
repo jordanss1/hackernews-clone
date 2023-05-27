@@ -1,5 +1,5 @@
 import React from "react";
-import SocialsWrapper from "./FooterSocialsWrapper";
+import FooterSocialsWrapper from "./FooterSocialsWrapper";
 import "../../styling/footer.css";
 import FooterExtraLinks from "./FooterExtraLinks";
 
@@ -45,13 +45,13 @@ const Footer = ({ is1000 }) => {
   ];
 
   return (
-    <footer className="footer pt-5 d-flex flex-column">
+    <footer className="footer px-2 pt-5 d-flex flex-column">
       <h3 className="text-center pb-1">Connect with us!</h3>
-      <div className="socials-outer-container d-flex justify-content-center py-4">
+      <div className="socials-outer-container d-flex justify-content-center py-5">
         <div className="socials-inner-container">
           {socialsAndFollowers.map(
             ({ icon, followers, backgroundColor, href }, i) => (
-              <SocialsWrapper
+              <FooterSocialsWrapper
                 key={i}
                 icon={icon}
                 followers={followers}
@@ -64,6 +64,9 @@ const Footer = ({ is1000 }) => {
         </div>
       </div>
       <FooterExtraLinks />
+      <p className="footer-note px-2 py-3">
+        © The Hacker News, 2023. All Rights Reserved.
+      </p>
     </footer>
   );
 };

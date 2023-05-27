@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import SearchContext from "../contexts/SearchContext";
-import images from "../images";
+import SearchContext from "../../contexts/SearchContext";
+import images from "../../images";
 
-const Trending = ({ is1000 }) => {
+const ArticlesTrending = ({ is1000 }) => {
   const { topArticles } = useContext(SearchContext);
 
   const handleClick = (link) => {
@@ -34,4 +34,4 @@ const Trending = ({ is1000 }) => {
   );
 };
 
-export default Trending;
+export default ArticlesTrending;

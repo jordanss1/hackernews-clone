@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Header from "./header/Header";
-import NewsFeed from "./NewsFeed";
 import Welcome from "./Welcome";
-import Trending from "./Trending";
 import SearchContext from "../contexts/SearchContext";
-import "../styling/mainPage.css";
 import CallToAction from "./CallToAction";
 import Footer from "./footer/Footer";
+import PlaceHolderMain from "./placeholders/PlaceHolderMain";
+import Articles from "./articles/Articles";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
+import "../styling/mainPage.css";
 
 const App = () => {
   const { loading, setLoading } = useContext(SearchContext);
@@ -16,7 +16,7 @@ const App = () => {
 
   const is1000 = useMediaQuery(1000);
 
-  const anchor = useRef();
+  const visibilityRef = useRef();
 
   useEffect(() => {
     const id = setTimeout(() => setDisplay(""), 3500);
@@ -30,7 +30,7 @@ const App = () => {
       setMainSectionVisibility(entry.isIntersecting);
     });
 
-    observer.observe(anchor.current);
+    observer.observe(visibilityRef.current);
   }, []);
 
   useEffect(() => {
@@ -42,10 +42,6 @@ const App = () => {
     if (mainSectionVisibility) {
       html.style.scrollSnapType = "none";
       welcomeContainer.style.opacity = "0";
-
-      id = setTimeout(() => {
-        setLoading(false);
-      }, 2000);
     }
 
     return () => clearTimeout(id);
@@ -53,8 +49,7 @@ const App = () => {
 
   useEffect(() => {
     if (!loading) {
-      const gridContainer =
-        document.getElementsByClassName("grid-container")[0];
+      const gridContainer = document.getElementsByClassName("main-content")[0];
 
       gridContainer.classList.add("main-enter");
     }
@@ -67,20 +62,10 @@ const App = () => {
         <Header headerName="The Hacker News" />
         <div className="divider mb-3"></div>
         {loading ? (
-          <div className="ui segment loading-p">
-            <div className="ui active inverted dimmer">
-              <div className="ui large text loader">Loading</div>
-            </div>
-            <p></p>
-            <p></p>
-            <p ref={anchor}></p>
-          </div>
+          <PlaceHolderMain visibilityRef={visibilityRef} />
         ) : (
           <main className="h-100 main-content">
-            <section className="d-grid grid-container">
-              <NewsFeed />
-              <Trending is1000={is1000} />
-            </section>
+            <Articles is1000={is1000} />
             <CallToAction />
             <Footer is1000={is1000} />
           </main>

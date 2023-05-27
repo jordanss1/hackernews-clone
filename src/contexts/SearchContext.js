@@ -23,48 +23,25 @@ export const SearchStore = ({ children }) => {
   };
 
   useEffect(() => {
-    const letters = [
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "g",
-      "h",
-      "i",
-      "j",
-      "k",
-      "l",
-      "m",
-      "n",
-      "o",
-      "p",
-      "q",
-      "r",
-      "s",
-      "t",
-      "u",
-      "v",
-      "w",
-      "x",
-      "y",
-      "z",
-    ];
+    let id;
 
-    if (!articles.length && !loading) {
-      handleSearchSubmit(
-        letters[Math.floor(Math.random() * 25)],
-        setArticles,
-        axiosSearchApi
-      );
+    if (!articles.length) {
+      id = setTimeout(() => {
+        handleSearchSubmit(
+          "vulnerabilites",
+          setArticles,
+          axiosSearchApi,
+          setLoading
+        );
 
-      axiosTopHeadlines.get("").then(({ data }) => {
-        console.log(data);
-        setTopArticles(data.articles);
-      });
+        axiosTopHeadlines.get("").then(({ data }) => {
+          setTopArticles(data.articles);
+        });
+      }, 3500);
     }
-  }, [loading]);
+
+    return () => clearTimeout(id);
+  }, []);
 
   return (
     <SearchContext.Provider value={fullProviders}>

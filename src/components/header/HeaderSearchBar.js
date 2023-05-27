@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import SearchContext from "../../contexts/SearchContext";
 import "../../styling/header.css";
 
-const SearchBar = ({ display }) => {
+const HeaderSearchBar = ({ display }) => {
   const {
     searchTerm,
     setSearchTerm,
@@ -38,4 +38,4 @@ const SearchBar = ({ display }) => {
   );
 };
 
-export default SearchBar;
+export default HeaderSearchBar;

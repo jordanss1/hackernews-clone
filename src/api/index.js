@@ -24,15 +24,22 @@ export const axiosTopHeadlines = axios.create({
   },
 });
 
-export const handleSearchSubmit = (searchTerm, setArticles, axiosApi) => {
-  axiosApi
+export const handleSearchSubmit = async (
+  searchTerm,
+  setArticles,
+  axiosApi,
+  setLoading
+) => {
+  setLoading(true);
+  await axiosApi
     .get("", {
       params: {
         q: searchTerm,
       },
     })
     .then(({ data }) => {
-      console.log(data);
       setArticles(data.articles);
-    });
+    })
+    .catch((err) => console.log(err.message));
+  setLoading(false);
 };

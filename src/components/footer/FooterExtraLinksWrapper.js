@@ -2,11 +2,14 @@ import React from "react";
 
 const FooterExtraLinksWrapper = ({ linkObject }) => {
   const header = linkObject.header;
+
   return (
-    <div className="d-flex flex-column">
-      <span className="fw-bold">{header}</span>
+    <div className="d-flex flex-column footer-list">
+      <span className="footer-list-header fw-bold">{header}</span>
       {linkObject.links.map((link) => (
-        <span className="">{link}</span>
+        <span key={link} className="footer-list-item">
+          {link}
+        </span>
       ))}
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import SearchContext from "../../contexts/SearchContext";
 
-const NavBar = ({ handleClick }) => {
+const HeaderNavBar = ({ handleClick }) => {
   const {
     loading,
     setLoading,
@@ -10,26 +10,9 @@ const NavBar = ({ handleClick }) => {
     setArticles,
   } = useContext(SearchContext);
 
-  const [searched, setSearched] = useState(false);
-
   const startSearch = (query) => {
-    handleSearchSubmit(query, setArticles, axiosSearchApi);
-    setSearched(true);
-    setLoading(true);
+    handleSearchSubmit(query, setArticles, axiosSearchApi, setLoading);
   };
-
-  useEffect(() => {
-    let id;
-
-    if (searched && loading) {
-      id = setTimeout(() => {
-        setSearched(false);
-        setLoading(false);
-      }, 1500);
-    }
-
-    return () => clearTimeout(id);
-  }, [searched]);
 
   return (
     <nav className="container-fluid">
@@ -80,4 +63,4 @@ const NavBar = ({ handleClick }) => {
   );
 };
 
-export default NavBar;
+export default HeaderNavBar;
