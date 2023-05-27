@@ -6,7 +6,7 @@ A web application that makes use of two endpoints form the NewsAPI API to bring 
 
 <h3><b>How to use app</b></h3>
 
-<b>You will need to get an authentication token from the <i>News API</i> service and add it into a .env file. Then add a variable called REACT_APP_ID in the .env and assign it the token.</b>
+<b>You will need to get an API key from the <i>News API</i> service <a href="https://newsapi.org/register">here</a> and add it into a .env file. Then add a variable called REACT_APP_ID in the .env and assign it the token.</b>
 
 On initial render there is a default search set on the right which can be scrolled to see all results. On the left you can see the top-headlines of HackerNews.
 
