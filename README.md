@@ -19,6 +19,8 @@ Go to the search bar and submit your search term to have the column on the left 
 
     $ git clone https://github.com/jordanss1/hackernews-clone
 
+<li>Add the API key from the above step into the .env file into the REACT_APP_ID variable</li> 
+   
 <li>
     Access the folder, "cd" into the directory and install any dependencies:
 
