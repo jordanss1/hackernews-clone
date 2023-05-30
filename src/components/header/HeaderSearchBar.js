@@ -7,13 +7,13 @@ const HeaderSearchBar = ({ display }) => {
     searchTerm,
     setSearchTerm,
     handleSearchSubmit,
-    setArticles,
-    axiosSearchApi,
+    setFullArticles,
+    setLoading,
   } = useContext(SearchContext);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    handleSearchSubmit(searchTerm, setArticles, axiosSearchApi);
+    handleSearchSubmit(searchTerm, setFullArticles, setLoading);
   };
 
   return (
