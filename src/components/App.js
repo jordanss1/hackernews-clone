@@ -60,16 +60,16 @@ const App = () => {
       <Welcome />
       <div className={`${display} main-container container-fluid gx-0`}>
         <Header headerName="The Hacker News" />
-        <div className="divider mb-3"></div>
+        <div ref={visibilityRef} className="divider mb-3"></div>
         {loading ? (
-          <PlaceHolderMain visibilityRef={visibilityRef} />
+          <PlaceHolderMain />
         ) : (
-          <main className="h-100 main-content">
+          <main className="main-content">
             <Articles is1000={is1000} />
             <CallToAction />
-            <Footer is1000={is1000} />
           </main>
         )}
+        <Footer is1000={is1000} />
       </div>
     </>
   );
