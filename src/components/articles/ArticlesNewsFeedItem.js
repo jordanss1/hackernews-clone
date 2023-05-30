@@ -1,11 +1,11 @@
 import React from "react";
 import format from "date-fns/format";
 
-const ArticleNewsFeedItem = ({ handleClick, article, image }) => {
+const ArticleNewsFeedItem = ({ article, image }) => {
   return (
     <article
       className="article-grid mb-4 d-grid"
-      onClick={() => handleClick(article.url)}
+      onClick={() => window.open(article.url, "_blank")}
       key={article.url}
     >
       <img src={image} className="news-image" />
@@ -15,7 +15,9 @@ const ArticleNewsFeedItem = ({ handleClick, article, image }) => {
           <div className="d-flex aside-heading">
             <div className="d-flex me-4">
               <i className="calendar alternate outline icon calender-i"></i>
-              <h3>{format(article.publishedAt.slice(0, 10), "PPP")}</h3>
+              <h3>
+                {format(new Date(article.publishedAt.slice(0, 10)), "PPP")}
+              </h3>
             </div>
             <h3>{article.source.Name}</h3>
           </div>

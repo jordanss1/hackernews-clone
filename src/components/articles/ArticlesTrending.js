@@ -11,11 +11,15 @@ const ArticlesTrending = ({ is1000 }) => {
 
   const articles = is1000 ? topArticles.slice(0, 4) : topArticles;
 
-  const renderedArticles = articles.map((article, i) => {
+  const renderedArticles = articles?.map((article, i) => {
     const image = images[i];
 
     return (
-      <article onClick={() => handleClick(article.url)} className="mb-3">
+      <article
+        key={i}
+        onClick={() => handleClick(article.url)}
+        className="mb-3"
+      >
         <img className="top-image me-3" src={image} />
         <div className="top-title">{article.title}</div>
       </article>
