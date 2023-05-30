@@ -1,5 +1,85 @@
 import axios from "axios";
 
+const art1 = [
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+  {
+    author: "Stack Overflow",
+    publishedAt: "2023-05-18T01:21:17Z",
+    source: { Id: null, Name: "Stackoverflow.com" },
+    title: "Opening modalwith multiple select Options",
+    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
+  },
+];
+
 export const axiosSearchApi = axios.create({
   baseURL: "https://newsapi.org/v2/everything",
   params: {
@@ -27,11 +107,10 @@ export const axiosTopHeadlines = axios.create({
 export const handleSearchSubmit = async (
   searchTerm,
   setArticles,
-  axiosApi,
   setLoading
 ) => {
   setLoading(true);
-  await axiosApi
+  await axiosSearchApi
     .get("", {
       params: {
         q: searchTerm,
@@ -41,5 +120,6 @@ export const handleSearchSubmit = async (
       setArticles(data.articles);
     })
     .catch((err) => console.log(err.message));
+
   setLoading(false);
 };
