@@ -29,6 +29,8 @@
 
 .heading-container {
   width: 520px;
+  user-select: none;
+  cursor: default;
 }
 
 .heading {

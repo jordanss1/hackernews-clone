@@ -1,14 +1,14 @@
 import React from "react";
 
-const PlaceHolderMain = ({ visibilityRef }) => {
+const PlaceHolderMain = () => {
   return (
-    <div className="ui segment loading-p">
-      <div className="ui active inverted dimmer">
-        <div className="ui large text loader">Loading</div>
+    <div className="ui segment loading-placeholder">
+      <div className="ui active inverted dimmer real-loader">
+        <div className="ui large text loader"></div>
       </div>
       <p></p>
       <p></p>
-      <p ref={visibilityRef}></p>
+      <p></p>
     </div>
   );
 };

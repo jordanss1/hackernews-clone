@@ -26,14 +26,17 @@ h6 {
   transition: 1s ease-in;
 }
 
-.loading-p {
-  height: 300px;
+.loading-placeholder {
+  min-height: 1330px;
   border: none !important;
   box-shadow: none !important;
 }
 
+.real-loader {
+  height: 200px !important;
+}
+
 .grid-container {
-  opacity: 0;
   grid-template-columns: repeat(auto-fit, minmax(441px, max-content));
   padding: 15px 6%;
 }
@@ -41,6 +44,8 @@ h6 {
 .newsfeed-div {
   max-width: 700px;
   width: 100%;
+  min-height: 1360px;
+  display: grid;
 }
 
 .main-enter {
@@ -50,6 +55,11 @@ h6 {
 .article-grid {
   grid-template-columns: auto max-content;
   column-gap: 15px;
+}
+
+.article-buttons {
+  min-width: 550px;
+  align-self: end;
 }
 
 .article-info {
@@ -301,6 +311,13 @@ article:hover .top-title {
   .article-grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
     justify-content: center;
+  }
+
+  .article-buttons {
+    min-width: auto;
+    max-width: 730px;
+    margin: 0 auto;
+    gap: 10px;
   }
 
   .trending-container {
