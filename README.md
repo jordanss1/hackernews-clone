@@ -43,12 +43,12 @@ Go to the search bar and submit your search term to have the column on the left 
 
 <h3><b>Technologies Used</b></h3>
 <ul>
-   <li> ReactJS </li>
-   <li>JavaScript</li>
+   <li>ReactJS</li>
+   <li>TypeScript</li>
    <li>HTML</li>
    <li>CSS</li>
-    <li>BootStrap</li>
-    <li>Semantic UI</li>
-    <li>Axios</li>
-    <li>NPM</li>
+   <li>BootStrap</li>
+   <li>Semantic UI</li>
+   <li>Axios</li>
+   <li>NPM</li>
 </ul>
