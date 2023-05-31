@@ -1,5 +1,9 @@
 <h1><b>HackerNews Clone</b></h1>
 
+Hacker News Clone - Watch Video
+
+
+
 <h3><b>Outline of Usage</b></h3>
 
 A web application that makes use of two endpoints form the NewsAPI API to bring a HackerNews-like clone provided with "top-headlines" and a column for search results.
