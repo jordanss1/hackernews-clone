@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Header from "./header/Header";
 import Welcome from "./Welcome";
 import SearchContext from "../contexts/SearchContext";
@@ -6,17 +6,18 @@ import CallToAction from "./CallToAction";
 import Footer from "./footer/Footer";
 import PlaceHolderMain from "./placeholders/PlaceHolderMain";
 import Articles from "./articles/Articles";
-import useMediaQuery from "../hooks/useMediaQuery.tsx";
+import useMediaQuery from "../hooks/useMediaQuery";
 import "../styling/mainPage.css";
 
 const App = () => {
   const { loading, setLoading } = useContext(SearchContext);
-  const [display, setDisplay] = useState("d-none");
-  const [mainSectionVisibility, setMainSectionVisibility] = useState(false);
+  const [display, setDisplay] = useState<string>("d-none");
+  const [mainSectionVisibility, setMainSectionVisibility] =
+    useState<boolean>(false);
 
   const is1000 = useMediaQuery(1000);
 
-  const visibilityRef = useRef();
+  const visibilityRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const id = setTimeout(() => setDisplay(""), 3500);
@@ -25,26 +26,26 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      setMainSectionVisibility(entry.isIntersecting);
-    });
+    if (visibilityRef.current) {
+      const observer = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        setMainSectionVisibility(entry.isIntersecting);
+      });
 
-    observer.observe(visibilityRef.current);
+      observer.observe(visibilityRef.current);
+    }
   }, []);
 
   useEffect(() => {
     const html = document.getElementsByTagName("html")[0];
-    const welcomeContainer =
-      document.getElementsByClassName("welcome-container")[0];
-    let id;
+    const welcomeContainer = document.getElementsByClassName(
+      "welcome-container"
+    )[0] as HTMLElement;
 
     if (mainSectionVisibility) {
       html.style.scrollSnapType = "none";
       welcomeContainer.style.opacity = "0";
     }
-
-    return () => clearTimeout(id);
   }, [mainSectionVisibility]);
 
   useEffect(() => {

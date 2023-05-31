@@ -1,6 +1,13 @@
 import axios from "axios";
+import { ArticleType } from "../types";
 
-const art1 = [
+type HandleSearchSubmitType = (
+  searchTerm: string,
+  setArticles: React.Dispatch<React.SetStateAction<ArticleType[] | null>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+) => void;
+
+const art1: ArticleType[] = [
   {
     author: "Stack Overflow",
     publishedAt: "2023-05-18T01:21:17Z",
@@ -88,7 +95,7 @@ export const axiosSearchApi = axios.create({
     language: "en",
   },
   headers: {
-    Authorization: process.env.REACT_APP_ID,
+    Authorization: process.env.REACT_APP_ID as string,
   },
 });
 
@@ -100,26 +107,27 @@ export const axiosTopHeadlines = axios.create({
     pageSize: 10,
   },
   headers: {
-    Authorization: process.env.REACT_APP_ID,
+    Authorization: process.env.REACT_APP_ID as string,
   },
 });
 
-export const handleSearchSubmit = async (
+export const handleSearchSubmit: HandleSearchSubmitType = async (
   searchTerm,
   setArticles,
   setLoading
 ) => {
   setLoading(true);
-  await axiosSearchApi
-    .get("", {
-      params: {
-        q: searchTerm,
-      },
-    })
-    .then(({ data }) => {
-      setArticles(data.articles);
-    })
-    .catch((err) => console.log(err.message));
+  await setArticles(art1);
+  // axiosSearchApi
+  //   .get("", {
+  //     params: {
+  //       q: searchTerm,
+  //     },
+  //   })
+  //   .then(({ data }) => {
+  //     setArticles(data.articles);
+  //   })
+  //   .catch((err) => console.log(err.message));
 
   setLoading(false);
 };
