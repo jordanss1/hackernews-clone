@@ -1,6 +1,8 @@
 <h1><b>HackerNews Clone</b></h1>
 
-Hacker News Clone - Watch Video
+
+
+https://github.com/jordanss1/hackernews-clone/assets/101638406/19182497-a8cc-484e-bc69-5d41d463ff82
 
 
 
