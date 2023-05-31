@@ -1,28 +1,60 @@
 import { useCallback, useReducer } from "react";
 
-export const useClasses = (initial) => {
-  const [logo, dispatch] = useReducer((state, action) => {
+const REDUCER_ACTION_TYPES = {
+  LOGO: "LOGO",
+};
+
+const ReducerTypeArray = [...Object.values(REDUCER_ACTION_TYPES)] as const;
+
+type ReturnedReducerTypes = (typeof ReducerTypeArray)[number];
+
+type ReducerStateType = {
+  theSpan: string;
+  topBorder: string;
+  container: string;
+};
+
+type ReducerAction = {
+  type: ReturnedReducerTypes;
+  payload: ReducerStateType;
+};
+
+type ReducerType = (
+  state: ReducerStateType,
+  action: ReducerAction
+) => ReducerStateType;
+
+export const useClasses = (initial: ReducerStateType) => {
+  const [logo, dispatch] = useReducer<ReducerType>((state, action) => {
     switch (action.type) {
-      case "LOGO":
+      case REDUCER_ACTION_TYPES.LOGO:
+        if (!action.payload) throw new Error("No payload");
+
         return {
           ...state,
-          theSpan: action.theSpan,
-          topBorder: action.topBorder,
-          container: action.container,
-          leftBorder: action.leftBorder,
+          theSpan: action.payload.theSpan,
+          topBorder: action.payload.topBorder,
+          container: action.payload.container,
         };
+
+      default:
+        return { ...state };
     }
   }, initial);
 
-  const setLogo = useCallback((theSpan, topBorder, container, leftBorder) => {
-    dispatch({
-      type: "LOGO",
-      theSpan,
-      topBorder,
-      container,
-      leftBorder,
-    });
-  }, []);
+  const setLogo = useCallback(
+    (theSpan: string, topBorder: string, container: string) => {
+      dispatch({
+        type: "LOGO",
+        payload: {
+          theSpan,
+          topBorder,
+          container,
+        },
+      });
+    },
+    []
+  );
 
   return { setLogo, logo };
 };
