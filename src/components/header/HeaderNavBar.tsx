@@ -1,11 +1,15 @@
-import React, { useContext } from "react";
+import { useContext, ReactElement } from "react";
 import SearchContext from "../../contexts/SearchContext";
 
-const HeaderNavBar = ({ handleClick }) => {
+const HeaderNavBar = ({
+  handleClick,
+}: {
+  handleClick: () => void;
+}): ReactElement => {
   const { loading, setLoading, handleSearchSubmit, setFullArticles } =
     useContext(SearchContext);
 
-  const startSearch = (query) => {
+  const startSearch = (query: string): void => {
     handleSearchSubmit(query, setFullArticles, setLoading);
   };
 

@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import { ReactElement, useContext } from "react";
 import SearchContext from "../../contexts/SearchContext";
 import images from "../../images";
 
-const ArticlesTrending = ({ is1000 }) => {
+const ArticlesTrending = ({ is1000 }: { is1000: boolean }): ReactElement => {
   const { topArticles } = useContext(SearchContext);
 
-  const handleClick = (link) => {
+  const handleClick = (link: string): void => {
     window.open(link, "_blank");
   };
 
-  const articles = is1000 ? topArticles.slice(0, 4) : topArticles;
+  const articles = is1000 ? topArticles?.slice(0, 4) : topArticles;
 
   const renderedArticles = articles?.map((article, i) => {
     const image = images[i];

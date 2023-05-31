@@ -1,6 +1,15 @@
-import React from "react";
+import { ReactElement } from "react";
+import { SocialAndFollowerType } from "./Footer";
 
-const FooterSocialsWrapper = ({ icon, followers, backgroundColor, href, is1000 }) => {
+const FooterSocialsWrapper = ({
+  social,
+  is1000,
+}: {
+  social: SocialAndFollowerType;
+  is1000: boolean;
+}): ReactElement => {
+  const { icon, href, backgroundColor, followers } = social;
+
   return (
     <div className="social-wrapper d-flex flex-column align-items-center">
       <a

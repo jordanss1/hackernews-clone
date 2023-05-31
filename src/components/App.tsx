@@ -62,7 +62,7 @@ const App = (): ReactElement => {
     <>
       <Welcome />
       <div className={`${display} main-container container-fluid gx-0`}>
-        <Header headerName="The Hacker News" />
+        <Header />
         <div ref={visibilityRef} className="divider mb-3"></div>
         {loading ? (
           <PlaceHolderMain />

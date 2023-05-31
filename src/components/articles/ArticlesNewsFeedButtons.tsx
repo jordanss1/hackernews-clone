@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import { ReactElement, useContext } from "react";
 import SearchContext from "../../contexts/SearchContext";
 
-const ArticlesNewsFeedButtons = () => {
+const ArticlesNewsFeedButtons = (): ReactElement => {
   const { fullArticles, sliceArray, handleButtonPress } =
     useContext(SearchContext);
 
   const handleNextVisibility =
-    sliceArray[1] < fullArticles.length ? "visible" : "hidden";
+    fullArticles && sliceArray[1] < fullArticles.length ? "visible" : "hidden";
 
   const handlePrevVisibility = sliceArray[0] === 0 ? "hidden" : "visible";
 
@@ -22,7 +22,9 @@ const ArticlesNewsFeedButtons = () => {
       </button>
       <button
         onClick={() => handleButtonPress("next")}
-        style={{ visibility: handleNextVisibility }}
+        style={{
+          visibility: handleNextVisibility,
+        }}
         className="d-flex align-items-baseline next-button"
       >
         <span className="px-1">Next Page</span>

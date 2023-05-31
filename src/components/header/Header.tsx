@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState, ReactElement } from "react";
 import SearchBar from "./HeaderSearchBar";
 import NavBar from "./HeaderNavBar";
 import "../../styling/header.css";
 
-const Header = ({ headerName }) => {
-  const [display, setDisplay] = useState(false);
+const Header = (): ReactElement => {
+  const [display, setDisplay] = useState<boolean>(false);
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     setDisplay((prev) => !prev);
   };
 
@@ -37,7 +37,7 @@ const Header = ({ headerName }) => {
       <div className="bottom-header px-3">
         <div className="bottom-container row justify-content-around align-content-center">
           <div className="heading-container pt-2 col-12 pb-2 pb-sm-0">
-            <h2 className="heading text-start ps-md-3">{headerName}</h2>
+            <h2 className="heading text-start ps-md-3">The Hacker News</h2>
           </div>
           <div className="subscribe-div col-12 col-sm-4 search-div d-flex justify-content-end align-self-center pb-2 pb-sm-0 pe-1">
             <button className="subscribe-button d-flex align-items-center rounded p-2">

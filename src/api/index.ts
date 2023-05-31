@@ -117,17 +117,17 @@ export const handleSearchSubmit: HandleSearchSubmitType = async (
   setLoading
 ) => {
   setLoading(true);
-  await setArticles(art1);
-  // axiosSearchApi
-  //   .get("", {
-  //     params: {
-  //       q: searchTerm,
-  //     },
-  //   })
-  //   .then(({ data }) => {
-  //     setArticles(data.articles);
-  //   })
-  //   .catch((err) => console.log(err.message));
+
+  await axiosSearchApi
+    .get("", {
+      params: {
+        q: searchTerm,
+      },
+    })
+    .then(({ data }) => {
+      setArticles(data.articles);
+    })
+    .catch((err) => console.log(err.message));
 
   setLoading(false);
 };

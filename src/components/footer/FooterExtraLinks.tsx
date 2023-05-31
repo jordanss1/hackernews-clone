@@ -1,7 +1,7 @@
-import React from "react";
+import { ReactElement } from "react";
 import FooterExtraLinksWrapper from "./FooterExtraLinksWrapper";
 
-const FooterExtraLinks = () => {
+const FooterExtraLinks = (): ReactElement => {
   const extraLinks = [
     {
       header: "Company",

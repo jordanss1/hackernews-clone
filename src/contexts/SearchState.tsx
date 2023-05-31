@@ -42,10 +42,9 @@ export const SearchState = () => {
       id = setTimeout(() => {
         handleSearchSubmit("cyber attacks", setFullArticles, setLoading);
 
-        // axiosTopHeadlines.get("").then(({ data }) => {
-        // setTopArticles(data.articles);
-        setTopArticles(art1);
-        // });
+        axiosTopHeadlines.get("").then(({ data }) => {
+          setTopArticles(data.articles);
+        });
       }, 3500);
     }
 

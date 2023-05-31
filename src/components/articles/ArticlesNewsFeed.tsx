@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import { ReactElement, useContext } from "react";
 import SearchContext from "../../contexts/SearchContext";
 import ArticlesNewsFeedItem from "./ArticlesNewsFeedItem";
 import "../../styling/mainPage.css";
 import images from "../../images";
 import ArticlesNewsFeedButtons from "./ArticlesNewsFeedButtons";
 
-const ArticlesNewsFeed = () => {
+const ArticlesNewsFeed = (): ReactElement => {
   const { articles } = useContext(SearchContext);
 
   return (

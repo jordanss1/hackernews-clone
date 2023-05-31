@@ -1,6 +1,6 @@
-import React from "react";
+import { ReactElement } from "react";
 
-const CallToAction = () => {
+const CallToAction = (): ReactElement => {
   return (
     <section className="call-action">
       <form className="email-box d-flex flex-column align-items-center">

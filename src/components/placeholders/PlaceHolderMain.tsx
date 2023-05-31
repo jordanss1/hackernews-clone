@@ -1,6 +1,6 @@
-import React from "react";
+import { ReactElement } from "react";
 
-const PlaceHolderMain = () => {
+const PlaceHolderMain = (): ReactElement => {
   return (
     <div className="ui segment loading-placeholder">
       <div className="ui active inverted dimmer real-loader">

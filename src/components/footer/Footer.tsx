@@ -1,10 +1,17 @@
-import React from "react";
+import { ReactElement } from "react";
 import FooterSocialsWrapper from "./FooterSocialsWrapper";
 import "../../styling/footer.css";
 import FooterExtraLinks from "./FooterExtraLinks";
 
-const Footer = ({ is1000 }) => {
-  const socialsAndFollowers = [
+export type SocialAndFollowerType = {
+  icon: string;
+  followers: string;
+  backgroundColor: string;
+  href: string;
+};
+
+const Footer = ({ is1000 }: { is1000: boolean }): ReactElement => {
+  const socialsAndFollowers: SocialAndFollowerType[] = [
     {
       icon: "twitter icon",
       followers: "894,000",
@@ -49,18 +56,9 @@ const Footer = ({ is1000 }) => {
       <h3 className="text-center pb-1">Connect with us!</h3>
       <div className="socials-outer-container d-flex justify-content-center py-5">
         <div className="socials-inner-container">
-          {socialsAndFollowers.map(
-            ({ icon, followers, backgroundColor, href }, i) => (
-              <FooterSocialsWrapper
-                key={i}
-                icon={icon}
-                followers={followers}
-                backgroundColor={backgroundColor}
-                href={href}
-                is1000={is1000}
-              />
-            )
-          )}
+          {socialsAndFollowers.map((social, i) => (
+            <FooterSocialsWrapper key={i} social={social} is1000={is1000} />
+          ))}
         </div>
       </div>
       <FooterExtraLinks />

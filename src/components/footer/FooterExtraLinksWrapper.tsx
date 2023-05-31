@@ -1,6 +1,15 @@
-import React from "react";
+import { ReactElement } from "react";
 
-const FooterExtraLinksWrapper = ({ linkObject }) => {
+type LinkObjectType = {
+  header: string;
+  links: string[];
+};
+
+const FooterExtraLinksWrapper = ({
+  linkObject,
+}: {
+  linkObject: LinkObjectType;
+}): ReactElement => {
   const header = linkObject.header;
 
   return (

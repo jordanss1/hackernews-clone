@@ -1,7 +1,14 @@
-import React from "react";
+import { ReactElement } from "react";
 import format from "date-fns/format";
+import { ArticleType } from "../../types";
 
-const ArticleNewsFeedItem = ({ article, image }) => {
+const ArticleNewsFeedItem = ({
+  article,
+  image,
+}: {
+  article: ArticleType;
+  image: string;
+}): ReactElement => {
   return (
     <article
       className="article-grid mb-4 d-grid"
