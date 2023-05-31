@@ -9,7 +9,7 @@ import image8 from "./malware.jpg";
 import image9 from "./play.jpg";
 import image10 from "./ransomware.jpg";
 
-const images = [
+const images: string[] = [
   image1,
   image2,
   image3,
