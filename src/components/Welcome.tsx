@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { useClasses } from "../contexts/classReducer";
 import "../styling/welcome.css";
 
-const Welcome = () => {
-  const [container2, setContainer2] = useState("d-none");
+const Welcome = (): ReactElement => {
+  const [container2, setContainer2] = useState<"d-flex" | "d-none">("d-none");
 
   const { logo, setLogo } = useClasses({
     theSpan: "the-span-intro",
@@ -14,16 +14,18 @@ const Welcome = () => {
   useEffect(() => {
     const id = setTimeout(() => {
       setContainer2("d-flex");
-      setLogo("the-span-final", "final-top-border", "d-none", "");
+      setLogo("the-span-final", "final-top-border", "d-none");
     }, 1500);
 
     return () => clearTimeout(id);
   }, []);
 
   useEffect(() => {
-    let id;
-    const welcomeContainer =
-      document.getElementsByClassName("welcome-container")[0];
+    let id: NodeJS.Timeout;
+
+    const welcomeContainer = document.getElementsByClassName(
+      "welcome-container"
+    )[0] as HTMLElement;
 
     if (container2 === "d-flex") {
       id = setTimeout(() => {
@@ -52,7 +54,7 @@ const Welcome = () => {
       <div
         className={`logo-container2 ${container2} flex-row justify-content-center`}
       >
-        <div className={`left-final-border ${logo.leftBorder}`}></div>
+        <div className="left-final-border"></div>
 
         <p className="me-3 d-flex align-items-center">
           <span
