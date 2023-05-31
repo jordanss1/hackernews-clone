@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState, ReactElement } from "react";
 import Header from "./header/Header";
 import Welcome from "./Welcome";
 import SearchContext from "../contexts/SearchContext";
@@ -9,7 +9,7 @@ import Articles from "./articles/Articles";
 import useMediaQuery from "../hooks/useMediaQuery";
 import "../styling/mainPage.css";
 
-const App = () => {
+const App = (): ReactElement => {
   const { loading, setLoading } = useContext(SearchContext);
   const [display, setDisplay] = useState<string>("d-none");
   const [mainSectionVisibility, setMainSectionVisibility] =
@@ -50,7 +50,9 @@ const App = () => {
 
   useEffect(() => {
     if (!loading) {
-      const gridContainer = document.getElementsByClassName("main-content")[0];
+      const gridContainer = document.getElementsByClassName(
+        "main-content"
+      )[0] as HTMLElement;
 
       gridContainer.classList.add("main-enter");
     }
