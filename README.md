@@ -53,6 +53,9 @@ Go to the search bar and submit your search term to have the column on the left 
    <li>TypeScript</li>
    <li>HTML</li>
    <li>CSS</li>
+   <li>React Testing Library</li>
+   <li>Jest</li>
+   <li>Mock Service Worker</li>
    <li>BootStrap</li>
    <li>Semantic UI</li>
    <li>Axios</li>
