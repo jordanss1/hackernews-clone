@@ -10,7 +10,7 @@ const HeaderNavBar = ({
     useContext(SearchContext);
 
   const startSearch = (query: string): void => {
-    handleSearchSubmit(query, setFullArticles, setLoading);
+    handleSearchSubmit(query, setLoading, setFullArticles);
   };
 
   return (

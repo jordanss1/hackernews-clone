@@ -1,11 +1,24 @@
 import axios from "axios";
-import { ArticleType } from "../types";
+import { ArticlesStateType } from "../contexts/SearchState";
 
 type HandleSearchSubmitType = (
   searchTerm: string,
-  setArticles: React.Dispatch<React.SetStateAction<ArticleType[] | null>>,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setArticles: React.Dispatch<React.SetStateAction<ArticlesStateType | null>>,
+  setTopArticles?: React.Dispatch<
+    React.SetStateAction<ArticlesStateType | null>
+  >,
+  initialRender?: boolean
 ) => void;
+
+type MainArticlesSearchType = (
+  searchTerm: string,
+  setArticles: React.Dispatch<React.SetStateAction<ArticlesStateType | null>>
+) => Promise<void>;
+
+type TopArticlesSearchType = (
+  setTopArticles: React.Dispatch<React.SetStateAction<ArticlesStateType | null>>
+) => Promise<void>;
 
 export const axiosSearchApi = axios.create({
   baseURL: "https://newsapi.org/v2/everything",
@@ -31,13 +44,10 @@ export const axiosTopHeadlines = axios.create({
   },
 });
 
-export const handleSearchSubmit: HandleSearchSubmitType = async (
+export const mainArticlesSearch: MainArticlesSearchType = async (
   searchTerm,
-  setArticles,
-  setLoading
+  setArticles
 ) => {
-  setLoading(true);
-
   await axiosSearchApi
     .get("", {
       params: {
@@ -45,9 +55,44 @@ export const handleSearchSubmit: HandleSearchSubmitType = async (
       },
     })
     .then(({ data }) => {
-      setArticles(data.articles);
+      setArticles({ articles: data.articles, error: null });
     })
-    .catch((err) => console.log(err.message));
+    .catch((err) => {
+      if (err instanceof Error) {
+        setArticles({ articles: null, error: err });
+        throw new Error(err.message);
+      }
+    });
+};
 
-  setLoading(false);
+const topArticleSearch: TopArticlesSearchType = async (setTopArticles) => {
+  await axiosTopHeadlines
+    .get("")
+    .then(({ data }) => {
+      setTopArticles({ articles: data.articles, error: null });
+    })
+    .catch((err) => {
+      if (err instanceof Error) {
+        setTopArticles({ articles: null, error: err });
+        throw new Error(err.message);
+      }
+    });
+};
+
+export const handleSearchSubmit: HandleSearchSubmitType = async (
+  searchTerm,
+  setLoading,
+  setArticles,
+  setTopArticles,
+  initialRender
+) => {
+  if (initialRender && setTopArticles) {
+    await mainArticlesSearch(searchTerm, setArticles);
+    await topArticleSearch(setTopArticles);
+    setLoading(false);
+  } else {
+    setLoading(true);
+    await mainArticlesSearch(searchTerm, setArticles);
+    setLoading(false);
+  }
 };

@@ -13,7 +13,7 @@ const HeaderSearchBar = ({ display }: { display: boolean }): ReactElement => {
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    handleSearchSubmit(searchTerm, setFullArticles, setLoading);
+    handleSearchSubmit(searchTerm, setLoading, setFullArticles);
   };
 
   return (

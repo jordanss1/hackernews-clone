@@ -1,12 +1,21 @@
 import { useState, useEffect, createContext } from "react";
-import { handleSearchSubmit, axiosTopHeadlines } from "../api";
+import { handleSearchSubmit } from "../api";
 import { ArticleType } from "../types";
 
 export type HandleButtonPressType = (buttonType: "prev" | "next") => void;
 
+export type ArticlesStateType = {
+  articles: ArticleType[] | null;
+  error: Error | null;
+};
+
 export const SearchState = () => {
-  const [fullArticles, setFullArticles] = useState<ArticleType[] | null>(null);
-  const [topArticles, setTopArticles] = useState<ArticleType[] | null>(null);
+  const [fullArticles, setFullArticles] = useState<ArticlesStateType | null>(
+    null
+  );
+  const [topArticles, setTopArticles] = useState<ArticlesStateType | null>(
+    null
+  );
   const [sliceArray, setSliceArray] = useState<number[]>([0, 10]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
@@ -15,12 +24,16 @@ export const SearchState = () => {
     let id: NodeJS.Timeout;
 
     if (!fullArticles) {
-      id = setTimeout(() => {
-        handleSearchSubmit("cyber attacks", setFullArticles, setLoading);
+      setLoading(true);
 
-        axiosTopHeadlines.get("").then(({ data }) => {
-          setTopArticles(data.articles);
-        });
+      id = setTimeout(() => {
+        handleSearchSubmit(
+          "cyber attacks",
+          setLoading,
+          setFullArticles,
+          setTopArticles,
+          true
+        );
       }, 3500);
     }
 
@@ -39,14 +52,11 @@ export const SearchState = () => {
     );
   };
 
-  const articles = fullArticles ? fullArticles.slice(...sliceArray) : null;
-
   return {
     handleButtonPress,
     sliceArray,
     loading,
     setLoading,
-    articles,
     fullArticles,
     setFullArticles,
     topArticles,
@@ -64,7 +74,6 @@ const SearchContext = createContext<SearchStateType>({
   sliceArray: [0, 10],
   loading: true,
   setLoading: () => {},
-  articles: null,
   fullArticles: null,
   setFullArticles: () => {},
   topArticles: null,

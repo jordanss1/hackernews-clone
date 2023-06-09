@@ -10,7 +10,7 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import "../styling/mainPage.css";
 
 const App = (): ReactElement => {
-  const { loading, setLoading } = useContext(SearchContext);
+  const { loading } = useContext(SearchContext);
   const [display, setDisplay] = useState<string>("d-none");
   const [mainSectionVisibility, setMainSectionVisibility] =
     useState<boolean>(false);
@@ -56,7 +56,7 @@ const App = (): ReactElement => {
 
       gridContainer.classList.add("main-enter");
     }
-  }, [loading, setLoading]);
+  }, [loading]);
 
   return (
     <>

@@ -5,8 +5,10 @@ const ArticlesNewsFeedButtons = (): ReactElement => {
   const { fullArticles, sliceArray, handleButtonPress } =
     useContext(SearchContext);
 
+  const articles = fullArticles?.articles;
+
   const handleNextVisibility =
-    fullArticles && sliceArray[1] < fullArticles.length ? "visible" : "hidden";
+    articles && sliceArray[1] < articles.length ? "visible" : "hidden";
 
   const handlePrevVisibility = sliceArray[0] === 0 ? "hidden" : "visible";
 

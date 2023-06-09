@@ -6,10 +6,16 @@ import images from "../../images";
 import ArticlesNewsFeedButtons from "./ArticlesNewsFeedButtons";
 
 const ArticlesNewsFeed = (): ReactElement => {
-  const { articles } = useContext(SearchContext);
+  const { fullArticles, sliceArray } = useContext(SearchContext);
 
-  return (
-    <div className="newsfeed-div">
+  const articles = fullArticles?.articles
+    ? fullArticles.articles.slice(...sliceArray)
+    : null;
+
+  const error = fullArticles?.error;
+
+  const renderArticles = (
+    <>
       <div>
         {articles?.map((article, i) => {
           const image = images[i];
@@ -20,6 +26,20 @@ const ArticlesNewsFeed = (): ReactElement => {
         })}
       </div>
       <ArticlesNewsFeedButtons />
+    </>
+  );
+
+  const renderError = (
+    <div>
+      <h3>There has been an error: {`${error?.name}${error?.message}`}</h3>
+      <h4>Please search again</h4>
+    </div>
+  );
+
+  return (
+    <div className="newsfeed-div">
+      {articles && renderArticles}
+      {error && renderError}
     </div>
   );
 };
