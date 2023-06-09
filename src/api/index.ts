@@ -60,7 +60,7 @@ export const mainArticlesSearch: MainArticlesSearchType = async (
     .catch((err) => {
       if (err instanceof Error) {
         setArticles({ articles: null, error: err });
-        throw new Error(err.message);
+        console.error(err.message);
       }
     });
 };
@@ -74,7 +74,7 @@ const topArticleSearch: TopArticlesSearchType = async (setTopArticles) => {
     .catch((err) => {
       if (err instanceof Error) {
         setTopArticles({ articles: null, error: err });
-        throw new Error(err.message);
+        console.error(err.message);
       }
     });
 };

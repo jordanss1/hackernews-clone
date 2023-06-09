@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 
 const PlaceHolderMain = (): ReactElement => {
   return (
-    <div className="ui segment loading-placeholder">
+    <div data-testid="placeholder" className="ui segment loading-placeholder">
       <div className="ui active inverted dimmer real-loader">
         <div className="ui large text loader"></div>
       </div>

@@ -2,20 +2,27 @@ import { MockedRequest, RestHandler, rest } from "msw";
 import { ArticleType } from "../types";
 
 type NewsFeedHandlersType = (
-  mainArticles: ArticleType[],
-  topNewsArticles: ArticleType[]
-) => RestHandler<MockedRequest<ArticleType[]>>[];
+  mainArticles?: ArticleType[],
+  topNewsArticles?: ArticleType[],
+  errorTest?: boolean
+) => RestHandler<MockedRequest<ArticleType[] | Error>>[];
 
 const newsFeedHandlers: NewsFeedHandlersType = (
   mainArticles,
-  topNewsArticles
+  topNewsArticles,
+  errorTest
 ) => {
+  const mainResponse = errorTest ? new Error("Error") : mainArticles;
+  const topResponse = errorTest ? new Error("Error") : topNewsArticles;
+
+  const statusCode = errorTest ? 500 : 200;
+
   return [
     rest.get("https://newsapi.org/v2/everything", (req, res, ctx) =>
-      res(ctx.status(200), ctx.json(mainArticles))
+      res(ctx.status(statusCode), ctx.json(mainResponse))
     ),
     rest.get("https://newsapi.org/v2/top-headlines", (req, res, ctx) =>
-      res(ctx.status(200), ctx.json(topNewsArticles))
+      res(ctx.status(statusCode), ctx.json(topResponse))
     ),
   ];
 };

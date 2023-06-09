@@ -10,8 +10,9 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import "../styling/mainPage.css";
 
 const App = (): ReactElement => {
-  const { loading } = useContext(SearchContext);
+  const { loading, fullArticles, topArticles } = useContext(SearchContext);
   const [display, setDisplay] = useState<string>("d-none");
+  const [initialRender, setInitialRender] = useState(true);
   const [mainSectionVisibility, setMainSectionVisibility] =
     useState<boolean>(false);
 
@@ -20,7 +21,9 @@ const App = (): ReactElement => {
   const visibilityRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const id = setTimeout(() => setDisplay(""), 3500);
+    const id = setTimeout(() => {
+      setDisplay("");
+    }, 3500);
 
     return () => clearTimeout(id);
   }, []);
@@ -38,13 +41,15 @@ const App = (): ReactElement => {
 
   useEffect(() => {
     const html = document.getElementsByTagName("html")[0];
-    const welcomeContainer = document.getElementsByClassName(
-      "welcome-container"
-    )[0] as HTMLElement;
 
-    if (mainSectionVisibility) {
+    if (mainSectionVisibility && initialRender) {
+      const welcomeContainer = document.getElementsByClassName(
+        "welcome-container"
+      )[0] as HTMLElement;
+
       html.style.scrollSnapType = "none";
       welcomeContainer.style.opacity = "0";
+      setInitialRender(false);
     }
   }, [mainSectionVisibility]);
 
@@ -60,7 +65,7 @@ const App = (): ReactElement => {
 
   return (
     <>
-      <Welcome />
+      {(!fullArticles || !topArticles) && <Welcome />}
       <div className={`${display} main-container container-fluid gx-0`}>
         <Header />
         <div ref={visibilityRef} className="divider mb-3"></div>

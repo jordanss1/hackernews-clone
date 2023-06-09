@@ -47,7 +47,9 @@ const Welcome = (): ReactElement => {
         <div>
           <div className={`hacker-div ${logo.topBorder}`}></div>
           <h1 data-text="Hacker News" className="">
-            <span className="hacker-word">Hacker News</span>
+            <span data-testid="welcome-logo" className="hacker-word">
+              Hacker News
+            </span>
           </h1>
         </div>
       </div>
@@ -66,7 +68,9 @@ const Welcome = (): ReactElement => {
         <div>
           <div className={`hacker-div-final ${logo.topBorder}`}></div>
           <h1 data-text-final="Hacker News" className="">
-            <span className={`hacker-word-final`}>Hacker News</span>
+            <span data-testid="welcome-logo" className={`hacker-word-final`}>
+              Hacker News
+            </span>
           </h1>
         </div>
       </div>
