@@ -4,30 +4,6 @@ import { ArticleType } from "../types";
 
 export type HandleButtonPressType = (buttonType: "prev" | "next") => void;
 
-const art1: ArticleType[] = [
-  {
-    author: "Stack Overflow",
-    publishedAt: "2023-05-18T01:21:17Z",
-    source: { Id: null, Name: "Stackoverflow.com" },
-    title: "Opening modalwith multiple select Options",
-    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
-  },
-  {
-    author: "Stack Overflow",
-    publishedAt: "2023-05-18T01:21:17Z",
-    source: { Id: null, Name: "Stackoverflow.com" },
-    title: "Opening modalwith multiple select Options",
-    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
-  },
-  {
-    author: "Stack Overflow",
-    publishedAt: "2023-05-18T01:21:17Z",
-    source: { Id: null, Name: "Stackoverflow.com" },
-    title: "Opening modalwith multiple select Options",
-    url: "https://stackoverflow.com/questions/76276563/opening-modalwith-multiple-select-options",
-  },
-];
-
 export const SearchState = () => {
   const [fullArticles, setFullArticles] = useState<ArticleType[] | null>(null);
   const [topArticles, setTopArticles] = useState<ArticleType[] | null>(null);
