@@ -14,6 +14,7 @@ const App = (): ReactElement => {
   const [initialRender, setInitialRender] = useState(true);
   const [mainSectionVisibility, setMainSectionVisibility] =
     useState<boolean>(false);
+  const [mainClass, setMainClass] = useState("");
 
   const is1000 = useMediaQuery(1000);
 
@@ -47,6 +48,12 @@ const App = (): ReactElement => {
     }
   }, [mainSectionVisibility]);
 
+  useEffect(() => {
+    if (!loading) {
+      setMainClass("main-enter");
+    }
+  }, [loading]);
+
   return (
     <>
       {(!fullArticles || !topArticles) && (
@@ -58,7 +65,7 @@ const App = (): ReactElement => {
         {loading ? (
           <PlaceHolderMain />
         ) : (
-          <Main loading={loading} is1000={is1000} />
+          <Main mainClass={mainClass} is1000={is1000} />
         )}
         <Footer is1000={is1000} />
       </div>

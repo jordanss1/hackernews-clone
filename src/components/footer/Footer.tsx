@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, memo } from "react";
 import FooterSocialsWrapper from "./FooterSocialsWrapper";
 import "../../styling/footer.css";
 import FooterExtraLinks from "./FooterExtraLinks";
@@ -69,4 +69,4 @@ const Footer = ({ is1000 }: { is1000: boolean }): ReactElement => {
   );
 };
 
-export default Footer;
+export default memo(Footer);
