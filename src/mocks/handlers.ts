@@ -1,9 +1,10 @@
 import { MockedRequest, RestHandler, rest } from "msw";
+import { MockResponseType } from "./api";
 import { ArticleType } from "../types";
 
 type NewsFeedHandlersType = (
-  mainArticles?: ArticleType[],
-  topNewsArticles?: ArticleType[],
+  mainArticles?: MockResponseType,
+  topNewsArticles?: MockResponseType,
   errorTest?: boolean
 ) => RestHandler<MockedRequest<ArticleType[] | Error>>[];
 

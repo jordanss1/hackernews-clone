@@ -1,8 +1,8 @@
 import { ArticleType } from "../types";
 
-type ResponseType = { articles: ArticleType[] };
+export type MockResponseType = { articles: ArticleType[] };
 
-export const lessThan10MainArticles: ResponseType = {
+export const lessThan10MainArticles: MockResponseType = {
   articles: [
     {
       author: "Stack Overflow",
@@ -77,7 +77,7 @@ export const lessThan10MainArticles: ResponseType = {
   ],
 };
 
-export const moreThan10MainArticles: ResponseType = {
+export const moreThan10MainArticles: MockResponseType = {
   articles: [
     {
       author: "Stack Overflow",
@@ -180,7 +180,7 @@ export const moreThan10MainArticles: ResponseType = {
   ],
 };
 
-export const topArticlesMock: ResponseType = {
+export const topArticlesMock: MockResponseType = {
   articles: [
     {
       author: "Stack Overflow",
