@@ -6,12 +6,7 @@ const HeaderNavBar = ({
 }: {
   handleClick: () => void;
 }): ReactElement => {
-  const { loading, setLoading, handleSearchSubmit, setFullArticles } =
-    useContext(SearchContext);
-
-  const startSearch = (query: string): void => {
-    handleSearchSubmit(query, setLoading, setFullArticles);
-  };
+  const { handleSearch } = useContext(SearchContext);
 
   return (
     <nav className="container-fluid">
@@ -21,13 +16,13 @@ const HeaderNavBar = ({
             <i className="d-none home icon home-icon"></i>Home
           </li>
           <li
-            onClick={!loading ? () => startSearch("data breaches") : () => {}}
+            onClick={() => handleSearch("data breaches")}
             className="d-breaches"
           >
             Data Breaches
           </li>
           <li
-            onClick={!loading ? () => startSearch("cyber attacks") : () => {}}
+            onClick={() => handleSearch("cyber attacks")}
             className="cyber-attacks"
           >
             Cyber Attacks
@@ -37,15 +32,12 @@ const HeaderNavBar = ({
             Newsletter
           </li>
           <li
-            onClick={!loading ? () => startSearch("vulnerabilites") : () => {}}
+            onClick={() => handleSearch("vulnerabilites")}
             className="vulnerable"
           >
             Vulnerabilities
           </li>
-          <li
-            onClick={!loading ? () => startSearch("malware") : () => {}}
-            className="malware"
-          >
+          <li onClick={() => handleSearch("malware")} className="malware">
             Malware
           </li>
           <li>

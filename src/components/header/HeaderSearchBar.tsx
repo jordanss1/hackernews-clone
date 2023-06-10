@@ -1,19 +1,14 @@
-import { FormEvent, ReactElement, useContext } from "react";
+import { FormEvent, ReactElement, useContext, useState } from "react";
 import SearchContext from "../../contexts/SearchContext";
 import "../../styling/header.css";
 
 const HeaderSearchBar = ({ display }: { display: boolean }): ReactElement => {
-  const {
-    searchTerm,
-    setSearchTerm,
-    handleSearchSubmit,
-    setFullArticles,
-    setLoading,
-  } = useContext(SearchContext);
+  const { handleSearch } = useContext(SearchContext);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    handleSearchSubmit(searchTerm, setLoading, setFullArticles);
+    handleSearch(searchTerm);
   };
 
   return (
