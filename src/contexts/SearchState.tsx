@@ -1,5 +1,6 @@
-import { useState, useEffect, createContext } from "react";
-import { handleSearchSubmit } from "../api";
+import { useState, useEffect, useRef, createContext } from "react";
+import { HandleSearchType, mainArticlesSearch, topArticleSearch } from "../api";
+import { CancelTokenSource } from "axios";
 import { ArticleType } from "../types";
 
 export type HandleButtonPressType = (buttonType: "prev" | "next") => void;
@@ -17,23 +18,31 @@ export const SearchState = () => {
     null
   );
   const [sliceArray, setSliceArray] = useState<number[]>([0, 10]);
-  const [searchTerm, setSearchTerm] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+
+  const cancelTokenRef = useRef<CancelTokenSource | null>(null);
+
+  const handleSearch: HandleSearchType = async (searchTerm, initialRender) => {
+    setLoading(true);
+
+    if (cancelTokenRef.current) cancelTokenRef.current.cancel();
+
+    if (initialRender) {
+      await mainArticlesSearch(searchTerm, setFullArticles, cancelTokenRef);
+      await topArticleSearch(setTopArticles);
+    } else {
+      await mainArticlesSearch(searchTerm, setFullArticles, cancelTokenRef);
+    }
+
+    setLoading(false);
+  };
 
   useEffect(() => {
     let id: NodeJS.Timeout;
 
     if (!fullArticles) {
-      setLoading(true);
-
       id = setTimeout(() => {
-        handleSearchSubmit(
-          "cyber attacks",
-          setLoading,
-          setFullArticles,
-          setTopArticles,
-          true
-        );
+        handleSearch("cyber attacks", true);
       }, 3500);
     }
 
@@ -42,7 +51,7 @@ export const SearchState = () => {
 
   useEffect(() => {
     setSliceArray([0, 10]);
-  }, [fullArticles]);
+  }, [fullArticles?.articles]);
 
   const handleButtonPress: HandleButtonPressType = (buttonType) => {
     window.scrollTo({ top: 0 });
@@ -61,9 +70,7 @@ export const SearchState = () => {
     setFullArticles,
     topArticles,
     setTopArticles,
-    searchTerm,
-    setSearchTerm,
-    handleSearchSubmit,
+    handleSearch,
   };
 };
 
@@ -78,9 +85,7 @@ const SearchContext = createContext<SearchStateType>({
   setFullArticles: () => {},
   topArticles: null,
   setTopArticles: () => {},
-  searchTerm: "",
-  setSearchTerm: () => {},
-  handleSearchSubmit: () => {},
+  handleSearch: () => new Promise(() => {}),
 });
 
 export default SearchContext;
