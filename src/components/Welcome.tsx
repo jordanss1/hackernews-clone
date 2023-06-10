@@ -2,8 +2,13 @@ import { useState, useEffect, ReactElement } from "react";
 import { useClasses } from "../contexts/classReducer";
 import "../styling/welcome.css";
 
-const Welcome = (): ReactElement => {
+const Welcome = ({
+  initialRender,
+}: {
+  initialRender: boolean;
+}): ReactElement => {
   const [container2, setContainer2] = useState<"d-flex" | "d-none">("d-none");
+  const [welcomeClass, setWelcomeClass] = useState<string>("");
 
   const { logo, setLogo } = useClasses({
     theSpan: "the-span-intro",
@@ -23,13 +28,9 @@ const Welcome = (): ReactElement => {
   useEffect(() => {
     let id: NodeJS.Timeout;
 
-    const welcomeContainer = document.getElementsByClassName(
-      "welcome-container"
-    )[0] as HTMLElement;
-
     if (container2 === "d-flex") {
       id = setTimeout(() => {
-        welcomeContainer.classList.add("welcome-leave");
+        setWelcomeClass("welcome-leave");
       }, 1500);
     }
 
@@ -37,7 +38,10 @@ const Welcome = (): ReactElement => {
   }, [container2]);
 
   return (
-    <section className="welcome-container flex-column align-items-center justify-content-center">
+    <section
+      style={{ opacity: initialRender ? "initial" : 0 }}
+      className={`welcome-container ${welcomeClass} flex-column align-items-center justify-content-center`}
+    >
       <div
         className={`logo-container ${logo.container} flex-row justify-content-center w-100`}
       >

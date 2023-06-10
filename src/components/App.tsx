@@ -2,12 +2,11 @@ import { useContext, useEffect, useRef, useState, ReactElement } from "react";
 import Header from "./header/Header";
 import Welcome from "./Welcome";
 import SearchContext from "../contexts/SearchContext";
-import CallToAction from "./CallToAction";
 import Footer from "./footer/Footer";
 import PlaceHolderMain from "./placeholders/PlaceHolderMain";
-import Articles from "./articles/Articles";
 import useMediaQuery from "../hooks/useMediaQuery";
 import "../styling/mainPage.css";
+import Main from "./Main";
 
 const App = (): ReactElement => {
   const { loading, fullArticles, topArticles } = useContext(SearchContext);
@@ -40,42 +39,26 @@ const App = (): ReactElement => {
   }, []);
 
   useEffect(() => {
-    const html = document.getElementsByTagName("html")[0];
-
     if (mainSectionVisibility && initialRender) {
-      const welcomeContainer = document.getElementsByClassName(
-        "welcome-container"
-      )[0] as HTMLElement;
+      const html = document.getElementsByTagName("html")[0];
 
       html.style.scrollSnapType = "none";
-      welcomeContainer.style.opacity = "0";
       setInitialRender(false);
     }
   }, [mainSectionVisibility]);
 
-  useEffect(() => {
-    if (!loading) {
-      const gridContainer = document.getElementsByClassName(
-        "main-content"
-      )[0] as HTMLElement;
-
-      gridContainer.classList.add("main-enter");
-    }
-  }, [loading]);
-
   return (
     <>
-      {(!fullArticles || !topArticles) && <Welcome />}
+      {(!fullArticles || !topArticles) && (
+        <Welcome initialRender={initialRender} />
+      )}
       <div className={`${display} main-container container-fluid gx-0`}>
         <Header />
         <div ref={visibilityRef} className="divider mb-3"></div>
         {loading ? (
           <PlaceHolderMain />
         ) : (
-          <main className="main-content">
-            <Articles is1000={is1000} />
-            <CallToAction />
-          </main>
+          <Main loading={loading} is1000={is1000} />
         )}
         <Footer is1000={is1000} />
       </div>
