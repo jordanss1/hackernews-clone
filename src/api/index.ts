@@ -1,26 +1,23 @@
-import axios from "axios";
+import { MutableRefObject } from "react";
+import axios, { CancelTokenSource } from "axios";
 import { ArticlesStateType } from "../contexts/SearchState";
 
-type HandleSearchSubmitType = (
+export type HandleSearchType = (
   searchTerm: string,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setArticles: React.Dispatch<React.SetStateAction<ArticlesStateType | null>>,
-  setTopArticles?: React.Dispatch<
-    React.SetStateAction<ArticlesStateType | null>
-  >,
   initialRender?: boolean
-) => void;
+) => Promise<void>;
 
 type MainArticlesSearchType = (
   searchTerm: string,
-  setArticles: React.Dispatch<React.SetStateAction<ArticlesStateType | null>>
+  setArticles: React.Dispatch<React.SetStateAction<ArticlesStateType | null>>,
+  cancelToken: MutableRefObject<CancelTokenSource | null>
 ) => Promise<void>;
 
 type TopArticlesSearchType = (
   setTopArticles: React.Dispatch<React.SetStateAction<ArticlesStateType | null>>
 ) => Promise<void>;
 
-export const axiosSearchApi = axios.create({
+const axiosSearchApi = axios.create({
   baseURL: "https://newsapi.org/v2/everything",
   params: {
     pageSize: 40,
@@ -32,7 +29,7 @@ export const axiosSearchApi = axios.create({
   },
 });
 
-export const axiosTopHeadlines = axios.create({
+const axiosTopHeadlines = axios.create({
   baseURL: "https://newsapi.org/v2/top-headlines",
   params: {
     category: "technology",
@@ -46,53 +43,40 @@ export const axiosTopHeadlines = axios.create({
 
 export const mainArticlesSearch: MainArticlesSearchType = async (
   searchTerm,
-  setArticles
-) => {
-  await axiosSearchApi
-    .get("", {
-      params: {
-        q: searchTerm,
-      },
-    })
-    .then(({ data }) => {
-      setArticles({ articles: data.articles, error: null });
-    })
-    .catch((err) => {
-      if (err instanceof Error) {
-        setArticles({ articles: null, error: err });
-        console.error(err.message);
-      }
-    });
-};
-
-const topArticleSearch: TopArticlesSearchType = async (setTopArticles) => {
-  await axiosTopHeadlines
-    .get("")
-    .then(({ data }) => {
-      setTopArticles({ articles: data.articles, error: null });
-    })
-    .catch((err) => {
-      if (err instanceof Error) {
-        setTopArticles({ articles: null, error: err });
-        console.error(err.message);
-      }
-    });
-};
-
-export const handleSearchSubmit: HandleSearchSubmitType = async (
-  searchTerm,
-  setLoading,
   setArticles,
-  setTopArticles,
-  initialRender
+  cancelToken
 ) => {
-  if (initialRender && setTopArticles) {
-    await mainArticlesSearch(searchTerm, setArticles);
-    await topArticleSearch(setTopArticles);
-    setLoading(false);
-  } else {
-    setLoading(true);
-    await mainArticlesSearch(searchTerm, setArticles);
-    setLoading(false);
+  cancelToken.current = axios.CancelToken.source();
+
+  try {
+    const { data } = await axiosSearchApi.get("", {
+      cancelToken: cancelToken.current.token,
+      params: { q: searchTerm },
+    });
+
+    setArticles({ articles: data.articles, error: null });
+  } catch (err) {
+    if (axios.isCancel(err)) console.error("Cancelled request", err);
+
+    if (!axios.isCancel(err) && err instanceof Error) {
+      setArticles({ articles: null, error: err });
+      console.error(err.message);
+    }
+  } finally {
+    cancelToken.current = null;
+  }
+};
+
+export const topArticleSearch: TopArticlesSearchType = async (
+  setTopArticles
+) => {
+  try {
+    const { data } = await axiosTopHeadlines.get("");
+    setTopArticles({ articles: data.articles, error: null });
+  } catch (err) {
+    if (err instanceof Error) {
+      setTopArticles({ articles: null, error: err });
+      console.error(err.message);
+    }
   }
 };
