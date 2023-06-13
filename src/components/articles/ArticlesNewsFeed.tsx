@@ -31,7 +31,7 @@ const ArticlesNewsFeed = (): ReactElement => {
 
   const renderError = (
     <div>
-      <h3>There has been an error: {`${error?.name}${error?.message}`}</h3>
+      <h3>There has been an error: {error?.message}</h3>
       <h4>Please search again</h4>
     </div>
   );

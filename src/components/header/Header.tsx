@@ -47,6 +47,7 @@ const Header = (): ReactElement => {
           </div>
           <div className="header-search d-none align-items-center justify-content-end mb-2">
             <i
+            data-testid="search-icon"
               onClick={() => setDisplay((prev) => !prev)}
               className="fs-4 search icon pe-5"
             ></i>
