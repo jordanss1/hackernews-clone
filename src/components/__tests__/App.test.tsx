@@ -11,9 +11,11 @@ import newsFeedHandlers from "../../mocks/handlers";
 import {
   MockResponseType,
   lessThan10MainArticles,
+  moreThan10MainArticles,
   newSearchedArticles,
   trendingArticlesMock,
 } from "../../mocks/api";
+import ArticlesNewsFeed from "../articles/ArticlesNewsFeed";
 
 export type WelcomeAnimationIsDoneType = (
   query: (
@@ -156,7 +158,7 @@ describe("Tests with only the default loaded state (no additional searches/API r
   });
 });
 
-describe("Using search input and navbar buttons to execute searches for fulfilled and failed requests", () => {
+describe("Using search input and navbar buttons to execute searches for fulfilled requests", () => {
   beforeEach(async () => {
     const handler = await newsFeedHandlers(
       lessThan10MainArticles,
@@ -166,15 +168,13 @@ describe("Using search input and navbar buttons to execute searches for fulfille
     server.use(...handler);
   });
 
-  it("Using a navbar search button to execute a new search and receive a fulfilled request to see they all work", async () => {
+  it("Using a navbar search button to execute a new search and receive a fulfilled and failed requests to see they all work", async () => {
     const { queryByTestId, getByText, getAllByText, findAllByText } =
       customRender(Wrapper, <App />);
 
     await welcomeAnimationIsDone(queryByTestId);
 
-    const pageOneArticle = getAllByText("Page 1 Main Articles")[0];
-
-    expect(pageOneArticle).toBeInTheDocument();
+    expect(getAllByText("Page 1 Main Articles")[0]).toBeInTheDocument();
 
     const handlers = await newsFeedHandlers(
       newSearchedArticles,
@@ -188,5 +188,99 @@ describe("Using search input and navbar buttons to execute searches for fulfille
     const newArticles = await findAllByText("New Searched Articles");
 
     expect(newArticles[0]).toBeInTheDocument();
+  });
+
+  it("Using search input to manually search for articles fulfilled request", async () => {
+    const {
+      queryByTestId,
+      getAllByText,
+      getByPlaceholderText,
+      getByTestId,
+      findAllByText,
+    } = customRender(Wrapper, <App />);
+
+    await welcomeAnimationIsDone(queryByTestId);
+
+    expect(getAllByText("Page 1 Main Articles")[0]).toBeInTheDocument();
+
+    const handlers = await newsFeedHandlers(
+      newSearchedArticles,
+      trendingArticlesMock
+    );
+
+    server.use(...handlers);
+
+    const searchInput = getByPlaceholderText("Search Here...");
+
+    await user.click(getByTestId("search-icon"));
+
+    await user.type(searchInput, "virus");
+
+    expect(searchInput).toHaveValue("virus");
+
+    await user.keyboard("{Enter}");
+
+    const newArticles = await findAllByText("New Searched Articles");
+
+    expect(newArticles[0]).toBeInTheDocument();
+  });
+
+  it("Using a navbar search button to execute a new search and receive a failed request", async () => {
+    const { queryByTestId, getByText, getAllByText, findByText } = customRender(
+      Wrapper,
+      <App />
+    );
+
+    await welcomeAnimationIsDone(queryByTestId);
+
+    expect(getAllByText("Page 1 Main Articles")[0]).toBeInTheDocument();
+
+    const handlers = await newsFeedHandlers(new Error(), trendingArticlesMock);
+
+    server.use(...handlers);
+
+    await user.click(getByText("Malware"));
+
+    expect(
+      await findByText(
+        "There has been an error: Request failed with status code 401"
+      )
+    ).toBeInTheDocument();
+  });
+});
+
+describe("Loaded in with more than ten articles", () => {
+  beforeEach(async () => {
+    const handler = await newsFeedHandlers(
+      moreThan10MainArticles,
+      trendingArticlesMock
+    );
+
+    server.use(...handler);
+  });
+
+  it("Next button is visible and works when more than ten articles, previous button also works", async () => {
+    const { queryByTestId, getByText, getAllByText, findByText, queryByText } =
+      customRender(Wrapper, <App />);
+
+    window.scrollTo = jest.fn();
+
+    await welcomeAnimationIsDone(queryByTestId);
+
+    expect(getAllByText("Page 1 Main Articles")[0]).toBeInTheDocument();
+
+    expect(queryByText("Previous Page")).not.toBeVisible();
+
+    expect(getByText("Next Page")).toBeVisible();
+
+    await user.click(getByText("Next Page"));
+
+    expect(getAllByText("Page 2 Main Articles")[0]).toBeInTheDocument();
+
+    expect(queryByText("Previous Page")).toBeVisible();
+
+    await user.click(getByText("Previous Page"));
+
+    expect(getAllByText("Page 1 Main Articles")[0]).toBeInTheDocument();
   });
 });
