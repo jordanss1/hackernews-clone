@@ -1,5 +1,6 @@
 import { useContext, ReactElement } from "react";
 import SearchContext from "../../contexts/SearchContext";
+import HeaderNavBarListItem from "./HeaderNavBarListItem";
 
 const HeaderNavBar = ({
   handleClick,
@@ -8,42 +9,62 @@ const HeaderNavBar = ({
 }): ReactElement => {
   const { handleSearch } = useContext(SearchContext);
 
+  const listItems = [
+    {
+      className: "",
+      icon: "d-none home icon home-icon",
+      name: "Home",
+    },
+    {
+      searchTerm: "data breaches",
+      className: "d-breaches",
+      name: "Data Breaches",
+    },
+    {
+      searchTerm: "cyber attacks",
+      className: "cyber-attacks",
+      name: "Cyber Attacks",
+    },
+    {
+      className: "d-none newsletter",
+      icon: "envelope icon",
+      name: "Newsletter",
+    },
+    {
+      searchTerm: "vulnerabilities",
+      className: "vulnerable",
+      name: "Vulnerabilities",
+    },
+    {
+      searchTerm: "malware",
+      className: "malware",
+      name: "Malware",
+    },
+    {
+      className: "",
+      icon: "d-none shopping cart icon cart-icon",
+      name: "Store",
+    },
+    {
+      className: "contact",
+      name: "Contact",
+    },
+  ];
+
   return (
     <nav className="container-fluid">
       <div className="menu ps-4">
         <ul className="d-flex align-items-center h-100">
-          <li>
-            <i className="d-none home icon home-icon"></i>Home
-          </li>
-          <li
-            onClick={() => handleSearch("data breaches")}
-            className="d-breaches"
-          >
-            Data Breaches
-          </li>
-          <li
-            onClick={() => handleSearch("cyber attacks")}
-            className="cyber-attacks"
-          >
-            Cyber Attacks
-          </li>
-          <li className="d-none newsletter">
-            <i className="envelope icon"></i>
-            Newsletter
-          </li>
-          <li
-            onClick={() => handleSearch("vulnerabilites")}
-            className="vulnerable"
-          >
-            Vulnerabilities
-          </li>
-          <li onClick={() => handleSearch("malware")} className="malware">
-            Malware
-          </li>
-          <li>
-            <i className="d-none shopping cart icon cart-icon"></i>Store
-          </li>
-          <li className="contact">Contact</li>
+          {listItems.map(({ className, name, icon, searchTerm }) => (
+            <HeaderNavBarListItem
+              key={name}
+              className={className}
+              name={name}
+              icon={icon}
+              searchTerm={searchTerm}
+              handleSearch={handleSearch}
+            />
+          ))}
         </ul>
       </div>
       <div className="icons-menu d-flex align-items-center justify-content-end justify-content-evenly mb-2 pe-5">

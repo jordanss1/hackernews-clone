@@ -1,23 +1,56 @@
 import { ReactNode } from "react";
 import "@testing-library/jest-dom";
-import "@testing-library/user-event";
-import { waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { waitFor, Matcher, MatcherOptions, act } from "@testing-library/react";
 import server from "../../mocks/server";
 import { customRender, Store } from "../../test-utils/test-utils";
 import { SearchStore } from "../../contexts/SearchContext";
 import "intersection-observer";
 import App from "../App";
+import newsFeedHandlers from "../../mocks/handlers";
+import {
+  MockResponseType,
+  lessThan10MainArticles,
+  newSearchedArticles,
+  trendingArticlesMock,
+} from "../../mocks/api";
+
+export type WelcomeAnimationIsDoneType = (
+  query: (
+    id: Matcher,
+    options?: MatcherOptions | undefined
+  ) => HTMLElement | null
+) => Promise<void>;
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
   return <Store store={SearchStore}>{children}</Store>;
 };
 
-describe("Less than 10 main articles from API call", () => {
-  it("Welcome page is shown and removed from the page after 3.5 seconds and the articles are on the page", async () => {
-    const { getAllByRole, getAllByText, queryByTestId } = customRender(
-      Wrapper,
-      <App />
+const welcomeAnimationIsDone: WelcomeAnimationIsDoneType = async (query) => {
+  await waitFor(() => expect(query("placeholder")).toBeNull(), {
+    timeout: 4000,
+  });
+};
+
+const user = userEvent.setup();
+
+describe("Tests with only the default loaded state (no additional searches/API requests)", () => {
+  let windowOpen: jest.SpyInstance;
+
+  beforeEach(async () => {
+    windowOpen = jest.spyOn(window, "open");
+
+    const handler = await newsFeedHandlers(
+      lessThan10MainArticles,
+      trendingArticlesMock
     );
+
+    server.use(...handler);
+  });
+
+  it("Welcome page is shown and removed from the page after 3.5 seconds and the articles, call to action and footer are on the page", async () => {
+    const { getAllByRole, getAllByText, queryByTestId, getByText } =
+      customRender(Wrapper, <App />);
 
     const welcomePageElements = getAllByRole("heading", {
       name: "Hacker News",
@@ -37,5 +70,123 @@ describe("Less than 10 main articles from API call", () => {
         expect(ele).not.toBeInTheDocument()
       );
     });
+
+    expect(getByText("Join 100,000+ Professionals")).toBeInTheDocument();
+
+    expect(getByText("Connect with us!")).toBeInTheDocument();
+  });
+
+  it("Network request is made, there are only 9 articles which means there are no buttons to change the pages", async () => {
+    const { queryByText, getAllByText, queryByTestId } = customRender(
+      Wrapper,
+      <App />
+    );
+
+    await welcomeAnimationIsDone(queryByTestId);
+
+    expect(getAllByText("Page 1 Main Articles")).toHaveLength(9);
+
+    expect(queryByText("Next Page")).not.toBeVisible();
+    expect(queryByText("Previous Page")).not.toBeVisible();
+  });
+
+  it("Top newsfeed articles are visible as always", async () => {
+    const { getAllByText, queryByTestId } = customRender(Wrapper, <App />);
+
+    await welcomeAnimationIsDone(queryByTestId);
+
+    expect(getAllByText("Trending Articles")[0]).toBeInTheDocument();
+  });
+
+  it("When page width is less than 1000px Trending Articles articles should go from 10 length to 4 length (anything after element 4 is undefined)", async () => {
+    const { getAllByText, queryByTestId, queryAllByText } = customRender(
+      Wrapper,
+      <App />
+    );
+
+    await welcomeAnimationIsDone(queryByTestId);
+
+    expect(getAllByText("Trending Articles")).toHaveLength(10);
+
+    expect(global.window.innerWidth).toBe(1024);
+
+    act(() => {
+      global.window.innerWidth = 950;
+      window.dispatchEvent(new Event("resize"));
+    });
+
+    expect(global.window.innerWidth).toBe(950);
+
+    expect(queryAllByText("Trending Articles")[4]).toBeUndefined();
+  });
+
+  it("Clicking on either type of article will open the article in a new tab", async () => {
+    const { getAllByText, queryByTestId } = customRender(Wrapper, <App />);
+
+    await welcomeAnimationIsDone(queryByTestId);
+
+    await user.click(getAllByText("Page 1 Main Articles")[0]);
+
+    expect(windowOpen).toHaveBeenCalledWith(
+      "https://stackoverflow.com",
+      "_blank"
+    );
+
+    await user.click(getAllByText("Trending Articles")[0]);
+
+    expect(windowOpen).toHaveBeenCalledWith(
+      "https://stackoverflow.com/trending",
+      "_blank"
+    );
+  });
+
+  it("Call to action input can receive text", async () => {
+    const { queryByTestId, getByPlaceholderText } = customRender(
+      Wrapper,
+      <App />
+    );
+
+    await welcomeAnimationIsDone(queryByTestId);
+
+    const callToActionInput = getByPlaceholderText("Your e-mail address");
+
+    await user.type(callToActionInput, "Hello");
+
+    expect(callToActionInput).toHaveValue("Hello");
+  });
+});
+
+describe("Using search input and navbar buttons to execute searches for fulfilled and failed requests", () => {
+  beforeEach(async () => {
+    const handler = await newsFeedHandlers(
+      lessThan10MainArticles,
+      trendingArticlesMock
+    );
+
+    server.use(...handler);
+  });
+
+  it("Using a navbar search button to execute a new search and receive a fulfilled request to see they all work", async () => {
+    const { queryByTestId, getByText, getAllByText, findAllByText } =
+      customRender(Wrapper, <App />);
+
+    await welcomeAnimationIsDone(queryByTestId);
+
+    const pageOneArticle = getAllByText("Page 1 Main Articles")[0];
+
+    expect(pageOneArticle).toBeInTheDocument();
+
+    const handlers = await newsFeedHandlers(
+      newSearchedArticles,
+      trendingArticlesMock
+    );
+
+    server.use(...handlers);
+
+    await user.click(getByText("Malware"));
+
+    const newArticles = await findAllByText("New Searched Articles");
+
+    expect(newArticles[0]).toBeInTheDocument();
   });
 });
