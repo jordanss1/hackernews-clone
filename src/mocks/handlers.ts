@@ -3,27 +3,27 @@ import { MockResponseType } from "./api";
 import { ArticleType } from "../types";
 
 type NewsFeedHandlersType = (
-  mainArticles?: MockResponseType,
-  topNewsArticles?: MockResponseType,
-  errorTest?: boolean
-) => RestHandler<MockedRequest<ArticleType[] | Error>>[];
+  mainArticles: MockResponseType,
+  trendingArticles: MockResponseType
+) => Promise<RestHandler<MockedRequest<MockResponseType>>[]>;
 
-const newsFeedHandlers: NewsFeedHandlersType = (
+const newsFeedHandlers: NewsFeedHandlersType = async (
   mainArticles,
-  topNewsArticles,
-  errorTest
+  trendingArticles
 ) => {
-  const mainResponse = errorTest ? new Error("Error") : mainArticles;
-  const topResponse = errorTest ? new Error("Error") : topNewsArticles;
-
-  const statusCode = errorTest ? 500 : 200;
+  let mainStatusCode = mainArticles instanceof Error ? 401 : 200;
+  let trendingStatusCode = trendingArticles instanceof Error ? 401 : 200;
 
   return [
-    rest.get("https://newsapi.org/v2/everything", (req, res, ctx) =>
-      res(ctx.status(statusCode), ctx.json(mainResponse))
+    rest.get(
+      "https://newsapi.org/v2/everything",
+      async (req, res, ctx) =>
+        await res(ctx.status(mainStatusCode), ctx.json(mainArticles))
     ),
-    rest.get("https://newsapi.org/v2/top-headlines", (req, res, ctx) =>
-      res(ctx.status(statusCode), ctx.json(topResponse))
+    rest.get(
+      "https://newsapi.org/v2/top-headlines",
+      async (req, res, ctx) =>
+        await res(ctx.status(trendingStatusCode), ctx.json(trendingArticles))
     ),
   ];
 };
